@@ -1,0 +1,27 @@
+name: nikeappdemo
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  firebase_auth: ^6.5.4
+  firebase_core: ^4.11.0
+  flutter:
+    sdk: flutter
+  http: ^1.5.0
+  shared_preferences: ^2.5.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Cẩn thận khoảng cách (space) ở đoạn này nhé:
+  assets:
+    - assets/
