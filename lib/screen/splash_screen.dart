@@ -90,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 ..rotateZ(rotationEffect),
               child: _showNikeLogo
                   ? const AppLogo(type: LogoType.nikeWhite, width: 150)
-                  : const AppLogo(type: LogoType.jordanWhite, width: 206),
+                  : const AppLogo(type: LogoType.jordanWhite, width: 200),
             );
           },
         ),
