@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/app_logo.dart';
 import 'home_screen.dart'; 
 import 'shop_screen.dart';
+import 'bag_screen.dart'; // <-- Nhớ import BagScreen vào nhé
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -51,10 +52,18 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   void _updateScreens() {
     _screens = [
-      const HomeScreen(), // Tab 1: Trang chủ
-      ShopScreen(isNike: _isNike), // Tab 2: Shop
-      _PlaceholderScreen(title: "Giỏ hàng (Bag)", isNike: _isNike),
-      _PlaceholderScreen(title: "Hồ sơ (Profile)", isNike: _isNike),
+      const HomeScreen(), // Tab 1: Trang chủ (Luôn đen/tràn viền do thiết kế riêng)
+      ShopScreen(isNike: _isNike), // Tab 2: Shop (Đổi màu tuỳ nút gạt)
+      BagScreen(
+        isNike: true, // <-- Ép BagScreen luôn hiển thị kiểu Nike (Trắng)
+        onShopNow: () {
+          // Hàm này giúp nhảy từ Bag sang Shop khi bấm nút
+          setState(() {
+            _currentIndex = 1;
+          });
+        },
+      ), 
+      const _PlaceholderScreen(title: "Hồ sơ (Profile)", isNike: true), // <-- Ép Profile luôn là Trắng
     ];
   }
 
@@ -67,15 +76,21 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = _isNike ? Colors.white : Colors.black;
-    final fgColor = _isNike ? Colors.black : Colors.white;
+    // Kiểm tra xem có đang ở tab Shop hay không (Tab 1 là Shop)
+    final bool isShop = _currentIndex == 1; 
+
+    // CHỈ áp dụng giao diện màu đen (Jordan) khi đang ở tab Shop VÀ đã gạt sang Jordan
+    final bool isJordanTheme = isShop && !_isNike;
+
+    // Tự động đổi màu nền và màu chữ của thanh Navbar theo giao diện
+    final bgColor = isJordanTheme ? Colors.black : Colors.white;
+    final fgColor = isJordanTheme ? Colors.white : Colors.black;
 
     return Scaffold(
       backgroundColor: bgColor,
       body: Stack(
         children: [
           // 1. Nội dung trang chính nằm dưới cùng
-          // Bọc PrimaryScrollController để các ListView bên trong tự động dùng chung Controller này
           PrimaryScrollController(
             controller: _scrollController,
             child: AnimatedSwitcher(
@@ -85,52 +100,58 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
 
           // 2. THANH KÍNH MỜ (Tự trong suốt khi ở trên cùng, hiện kính mờ khi cuộn)
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: MediaQuery.of(context).padding.top + 70,
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 200),
-              opacity: _isScrolled ? 1.0 : 0.0, // Chuyển đổi độ mờ
-              child: ClipRRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                  child: Container(
-                    color: bgColor.withValues(alpha: 0.7),
+          // CHỈ HIỂN THỊ KHI ĐANG Ở TAB SHOP
+          if (isShop)
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: MediaQuery.of(context).padding.top + 70,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                opacity: _isScrolled ? 1.0 : 0.0,
+                child: ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                    child: Container(
+                      color: bgColor.withOpacity(0.7), // Dùng withOpacity để an toàn
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
 
           // 3. CHỮ SHOP NHỎ Ở GIỮA (Fade in khi cuộn sâu xuống)
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 18,
-            left: 0,
-            right: 0,
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 200),
-              opacity: _showSmallTitle ? 1.0 : 0.0, // Ẩn/Hiện mượt mà
-              child: Center(
-                child: Text(
-                  _isNike ? "Shop" : "Shop Jordan",
-                  style: TextStyle(
-                    fontSize: 16, 
-                    fontWeight: FontWeight.bold, 
-                    color: fgColor,
+          // CHỈ HIỂN THỊ KHI ĐANG Ở TAB SHOP
+          if (isShop)
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 18,
+              left: 0,
+              right: 0,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                opacity: _showSmallTitle ? 1.0 : 0.0,
+                child: Center(
+                  child: Text(
+                    _isNike ? "Shop" : "Shop Jordan",
+                    style: TextStyle(
+                      fontSize: 16, 
+                      fontWeight: FontWeight.bold, 
+                      color: fgColor,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
 
-          // 4. Nút gạt thương hiệu (Nike/Jordan)
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 10,
-            left: 20,
-            child: _buildBrandToggle(),
-          ),
+          // 4. NÚT GẠT THƯƠNG HIỆU (Nike/Jordan)
+          // CHỈ HIỂN THỊ KHI ĐANG Ở TAB SHOP
+          if (isShop)
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 10,
+              left: 20,
+              child: _buildBrandToggle(),
+            ),
 
           // 5. Thanh điều hướng Floating ở dưới đáy
           Positioned(
@@ -149,7 +170,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       onTap: _toggleBrand,
       child: Container(
         width: 104,
-        height: 40, // Đã giảm từ 46 xuống 40 cho nút thon gọn hơn
+        height: 40,
         padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: _isNike ? Colors.grey.shade400 : const Color(0xFF1A1A1A),
@@ -165,7 +186,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeInOut,
-              left: _isNike ? 0 : 48, // Đã sửa lại thành 48 cho khít vừa vặn mép trong
+              left: _isNike ? 0 : 48,
               top: 0,
               bottom: 0,
               child: Container(
@@ -186,7 +207,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                         _isNike ? Colors.white : Colors.grey.shade500,
                         BlendMode.srcIn,
                       ),
-                      child: const AppLogo(type: LogoType.nikeWhite, width: 30), // Logo Nike chuẩn size 30
+                      child: const AppLogo(type: LogoType.nikeWhite, width: 30),
                     ),
                   ),
                 ),
@@ -197,7 +218,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                         Colors.white,
                         BlendMode.srcIn,
                       ),
-                      child: const AppLogo(type: LogoType.jordanWhite, width: 46), // Logo Jordan 46 để lọt thỏm cân đối
+                      child: const AppLogo(type: LogoType.jordanWhite, width: 46),
                     ),
                   ),
                 ),
@@ -221,34 +242,33 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               child: Container(
                 height: 70,
                 decoration: BoxDecoration(
-                  color: bgColor.withValues(alpha: 0.8),
+                  color: bgColor.withOpacity(0.8), // Dùng withOpacity
                   borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: fgColor.withValues(alpha: 0.1), width: 1),
+                  border: Border.all(color: fgColor.withOpacity(0.1), width: 1),
                 ),
                 child: Stack(
                   children: [
-                    // Cục highlight nền trượt béo lên và bo tròn (Squircle)
+                    // Cục highlight nền trượt
                     AnimatedAlign(
                       duration: const Duration(milliseconds: 250),
                       curve: Curves.easeInOut,
-                      // Dàn đều 4 nút từ -1.0 đến 1.0
                       alignment: Alignment(-1.0 + (_currentIndex * (2 / 3)), 0),
                       child: FractionallySizedBox(
-                        widthFactor: 0.25, // Chiếm 1/4 chiều rộng thanh
+                        widthFactor: 0.25,
                         heightFactor: 1.0,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8), 
                           child: Container(
                             decoration: BoxDecoration(
-                              color: fgColor.withValues(alpha: 0.12),
-                              borderRadius: BorderRadius.circular(22), // Bo góc mềm mại
+                              color: fgColor.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(22),
                             ),
                           ),
                         ),
                       ),
                     ),
                     
-                    // Lớp Icon và chữ nổi lên trên
+                    // Lớp Icon và chữ
                     Row(
                       children: [
                         Expanded(child: _navItem(0, Icons.home_outlined, Icons.home, "Home", fgColor)),
@@ -276,9 +296,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 width: 70,
                 height: 70,
                 decoration: BoxDecoration(
-                  color: bgColor.withValues(alpha: 0.8),
+                  color: bgColor.withOpacity(0.8),
                   shape: BoxShape.circle,
-                  border: Border.all(color: fgColor.withValues(alpha: 0.1), width: 1),
+                  border: Border.all(color: fgColor.withOpacity(0.1), width: 1),
                 ),
                 child: Icon(Icons.search, color: fgColor, size: 28),
               ),
