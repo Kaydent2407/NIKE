@@ -21,7 +21,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  # Cẩn thận khoảng cách (space) ở đoạn này nhé:
   assets:
     - assets/
+    - assets/section1/
