@@ -92,7 +92,7 @@ class ShoeCard extends StatelessWidget {
                     const SizedBox(height: 5),
 
                     Text(
-                      shoe.subtitle,
+                      shoe.description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -104,7 +104,7 @@ class ShoeCard extends StatelessWidget {
                     const Spacer(),
 
                     Text(
-                      shoe.price,
+                      "\$${shoe.price.toStringAsFixed(2)}",
                       style: const TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 18,

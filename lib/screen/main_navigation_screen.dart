@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../widgets/app_logo.dart';
 import 'home_screen.dart'; 
 import 'shop_screen.dart';
-import 'bag_screen.dart'; // <-- Nhớ import BagScreen vào nhé
+import 'bag_screen.dart';
+import 'profile_screen.dart'; // <-- Nhớ import ProfileScreen vào nhé
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -63,7 +64,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           });
         },
       ), 
-      const _PlaceholderScreen(title: "Hồ sơ (Profile)", isNike: true), // <-- Ép Profile luôn là Trắng
+      const ProfileScreen(), // <-- Ép Profile luôn là Trắng
     ];
   }
 
@@ -274,7 +275,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                         Expanded(child: _navItem(0, Icons.home_outlined, Icons.home, "Home", fgColor)),
                         Expanded(child: _navItem(1, Icons.sell_outlined, Icons.sell, "Shop", fgColor)),
                         Expanded(child: _navItem(2, Icons.shopping_bag_outlined, Icons.shopping_bag, "Bag", fgColor, hasBadge: false)),
-                        Expanded(child: _navItem(3, Icons.person_outline, Icons.person, "Profile", fgColor)),
+                        Expanded(child: _navItem(3, Icons.person_outline, Icons.person, "Profile", fgColor, hasBadge: false)),
                       ],
                     ),
                   ],

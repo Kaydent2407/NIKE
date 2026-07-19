@@ -1,51 +1,71 @@
 class Shoe {
-  final String id;
+  final int id;
   final String title;
-  final String subtitle;
-  final String price;
+  final String description;
+  final double price;
+  final String brand;
+  final String category;
   final String imageUrl;
-  final String productUrl;
-  final String gender;
-  final String createdAt;
-  final String target;
+  final List<String> images;
 
   Shoe({
     required this.id,
     required this.title,
-    required this.subtitle,
+    required this.description,
     required this.price,
+    required this.brand,
+    required this.category,
     required this.imageUrl,
-    required this.productUrl,
-    required this.gender,
-    required this.createdAt,
-    required this.target,
+    required this.images,
   });
 
+
   factory Shoe.fromJson(Map<String, dynamic> json) {
+
     return Shoe(
-      id: json["group_key"] ?? "",
-      title: json["title"] ?? "",
-      subtitle: json["subtitle"] ?? "",
-      price: json["price"] ?? "",
-      imageUrl: json["image_url"] ?? "",
-      productUrl: json["product_url"] ?? "",
-      gender: json["gender"] ?? "",
-      createdAt: json["created_at"] ?? "",
-      target: json["target"] ?? "",
+      id: json['id'] ?? 0,
+
+      title: json['title'] ?? "",
+
+      description: json['description'] ?? "",
+
+      price: (json['price'] ?? 0).toDouble(),
+
+      brand: json['brand'] ?? "",
+
+      category: json['category'] ?? "",
+
+      imageUrl: json['thumbnail'] ?? "",
+
+      images: json['images'] != null
+          ? List<String>.from(json['images'])
+          : [],
     );
+
   }
 
-  Map<String, dynamic> toJson() {
+
+  Map<String, dynamic> toJson(){
+
     return {
-      "group_key": id,
+
+      "id": id,
+
       "title": title,
-      "subtitle": subtitle,
+
+      "description": description,
+
       "price": price,
-      "image_url": imageUrl,
-      "product_url": productUrl,
-      "gender": gender,
-      "created_at": createdAt,
-      "target": target,
+
+      "brand": brand,
+
+      "category": category,
+
+      "thumbnail": imageUrl,
+
+      "images": images,
+
     };
+
   }
 }

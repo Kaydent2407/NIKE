@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'; 
 import 'package:shared_preferences/shared_preferences.dart'; // Thư viện lưu trữ dữ liệu máy
+import 'package:cloud_firestore/cloud_firestore.dart'; // Thư viện Firestore
 
 import 'splash_screen.dart';
 import '../widgets/app_logo.dart'; 
@@ -23,12 +24,13 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isEnglish = true;
   
   final _formKey = GlobalKey<FormState>();
-
+  
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-
+  
   @override
   void initState() {
     super.initState();
@@ -51,6 +53,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
@@ -116,16 +119,39 @@ class _AuthScreenState extends State<AuthScreen> {
           return;
         }
 
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
-        );
+        UserCredential userCredential =
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: _emailController.text.trim(),
+    password: _passwordController.text.trim(),
+);
+    print("Đăng ký Auth OK");
+
+try{
+// Lưu thông tin người dùng vào Firestore
+await FirebaseFirestore.instance
+    .collection("users")
+    .doc(userCredential.user!.uid)
+    .set({
+
+  "name": _nameController.text.trim(), // Tên người dùng
+  "email": _emailController.text.trim(),
+  "phone": _phoneController.text.trim(), // Nếu có ô nhập số điện thoại
+  "avatar": "",
+  "createdAt": FieldValue.serverTimestamp(),
+});
+print("Lưu dữ liệu Firestore OK");
+}catch(e){
+  print("Lỗi lưu dữ liệu Firestore: $e");}
+
         
         if (mounted) Navigator.pop(context); 
 
         setState(() {
           _isSignIn = true; 
-          _passwordController.clear(); 
+          _nameController.clear();
+          _emailController.clear();
+          _phoneController.clear();
+          _passwordController.clear();
           _confirmPasswordController.clear();
         });
 
@@ -137,7 +163,7 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
           );
         }
-      }
+}
 
     } on FirebaseAuthException catch (e) {
       if (mounted) Navigator.pop(context); 
@@ -270,6 +296,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ],
 
               if (!_isSignIn) ...[
+                _buildTextField(labelEn: 'Full Name*',labelVi: 'Họ và tên*',controller: _nameController,),
                 _buildTextField(labelEn: 'Email*', labelVi: 'Email*', controller: _emailController),
                 _buildTextField(labelEn: 'Phone Number*', labelVi: 'Số điện thoại*', controller: _phoneController),
                 _buildTextField(labelEn: 'Password*', labelVi: 'Mật khẩu*', isPassword: true, controller: _passwordController),

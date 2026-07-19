@@ -35,7 +35,7 @@ class DetailScreen extends StatelessWidget {
 
               Center(
                 child: Hero(
-                  tag: shoe.id,
+                  tag: shoe.id.toString(),
                   child: Image.network(
                     shoe.imageUrl,
                     height: 320,
@@ -62,7 +62,7 @@ class DetailScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  shoe.subtitle,
+                  shoe.description,
                   style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 17,
@@ -75,7 +75,7 @@ class DetailScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  shoe.price,
+                  "\$${shoe.price.toStringAsFixed(2)}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -102,7 +102,7 @@ class DetailScreen extends StatelessWidget {
 
                       Expanded(
                         child: Text(
-                          shoe.gender,
+                          shoe.brand,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -125,7 +125,7 @@ class DetailScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(18),
                   ),
                   child: Text(
-                    shoe.subtitle,
+                    shoe.description,
                     style: const TextStyle(
                       fontSize: 16,
                       height: 1.5,
