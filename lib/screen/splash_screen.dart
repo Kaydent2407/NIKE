@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // 1. Import Firebase Auth
 import '../widgets/app_logo.dart';
 import 'main_navigation_screen.dart';
+import 'auth_screen.dart'; // 2. Import AuthScreen
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   late Timer _glitchTimer;
   late AnimationController _controller;
   
-  // Các thông số cấu hình độ giật (Bạn có thể tự chỉnh lại theo ý muốn)
-  final Duration _glitchSpeed = const Duration(milliseconds: 400); // Tốc độ giật (càng nhỏ càng nhanh)
+  // Các thông số cấu hình độ giật
+  final Duration _glitchSpeed = const Duration(milliseconds: 400);
   double _currentScale = 1.0;
   double _currentRotation = 0.0;
 
@@ -36,28 +38,34 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       if (!mounted) return;
       
       setState(() {
-        // 1. Đổi logo lập tức (Không fade)
         _showNikeLogo = !_showNikeLogo;
-        
-        // 2. Tạo độ phóng to giật mình ngẫu nhiên từ 1.1 đến 1.3
         _currentScale = 1.1 + (math.Random().nextDouble() * 0.2);
-        
-        // 3. Tạo góc xoay nghiêng giật mình ngẫu nhiên từ -15 đến +15 độ
-        //_currentRotation = (math.Random().nextDouble() * 30 - 15) * math.pi / 180;
       });
 
-      // Kích hoạt hiệu ứng co giãn giật về trạng thái gốc
       _controller.forward(from: 0.0);
     });
 
-    // Sau đúng 3 giây, tắt hiệu ứng giật và chuyển thẳng vào HomeScreen
+    // Sau đúng 3 giây, kiểm tra trạng thái đăng nhập và chuyển màn hình
     Timer(const Duration(seconds: 3), () {
       _glitchTimer.cancel();
       _controller.dispose();
-      if (mounted) {
+      
+      if (!mounted) return;
+
+      // 3. Kiểm tra user đã đăng nhập Firebase hay chưa
+      User? currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser != null) {
+        // Đã đăng nhập -> Chuyển sang màn hình chính
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
+        );
+      } else {
+        // Chưa đăng nhập -> Chuyển sang màn hình đăng nhập / đăng ký
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const AuthScreen()),
         );
       }
     });
@@ -66,20 +74,17 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void dispose() {
     _glitchTimer.cancel();
-    if (_controller.isAnimating || _controller.isCompleted) {    
-    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Nền đen premium tối giản
+      backgroundColor: Colors.black,
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
-            // Sử dụng các hàm nội suy biến đổi để tạo nhịp nhấp nháy gắt
             final double scaleEffect = _currentScale - (_controller.value * (_currentScale - 1.0));
             final double rotationEffect = _currentRotation - (_controller.value * _currentRotation);
 
