@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'all_shoes_screen.dart';
+import 'package:flutter_avif/flutter_avif.dart';
+
+import '../data/local_product_data.dart';
+import '../models/shoe_model.dart';
+import 'detail_screen.dart';
+import 'product_list_screen.dart';
 
 class ShopScreen extends StatefulWidget {
   final bool isNike;
@@ -47,85 +52,191 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  String get _activeGender {
+    switch (_tabController.index) {
+      case 0:
+        return 'Men';
+      case 1:
+        return 'Women';
+      case 2:
+        return 'Kids';
+      default:
+        return 'Men';
+    }
+  }
+
   List<Widget> _buildTabContent(Color fgColor) {
     final int tabIndex = _tabController.index;
-    
     List<Widget> contentWidgets = [];
 
-    // -----------------------------
-    // NỘI DUNG CHO TỪNG BRAND VÀ TAB
-    // -----------------------------
+    // Gọi kho dữ liệu Local
+    final allLocalProducts = LocalProductData.mockProducts();
+    
+    String featuredTitle = '';
+    List<Widget> featuredWidgets = [];
+
     if (widget.isNike) {
-      // ===== NIKE (Gồm 2 banner) =====
       String shoesImg = '';
       String clothingImg = '';
 
-      if (tabIndex == 0) { // Men
+      if (tabIndex == 0) { // MEN
         shoesImg = 'assets/bannermenshoes.jpg';
         clothingImg = 'assets/bannermenacs.jpg';
-      } else if (tabIndex == 1) { // Women
+        
+        featuredTitle = 'Trending for Men';
+        // Tự động lấy 4 sản phẩm của Nam
+        final featuredShoes = allLocalProducts.where((p) => p.gender == 'Men').take(4).toList();
+        featuredWidgets = featuredShoes.map((shoe) => _buildClickableCard(shoe, fgColor)).toList();
+        
+      } else if (tabIndex == 1) { // WOMEN
         shoesImg = 'assets/bannerwomenshoes.jpg';
         clothingImg = 'assets/bannerwomenacs.jpg';
-      } else { // Kids
+
+        featuredTitle = 'Trending for Women';
+        // Tự động lấy 4 sản phẩm của Nữ
+        final featuredShoes = allLocalProducts.where((p) => p.gender == 'Women').take(4).toList();
+        featuredWidgets = featuredShoes.map((shoe) => _buildClickableCard(shoe, fgColor)).toList();
+
+      } else { // KIDS
         shoesImg = 'assets/bannerkidshoes.jpg';
         clothingImg = 'assets/bannerkidacs.jpg';
+
+        featuredTitle = 'Trending for Kids';
+        // Tự động lấy 4 sản phẩm của Trẻ em
+        final featuredShoes = allLocalProducts.where((p) => p.gender == 'Kids').take(4).toList();
+        featuredWidgets = featuredShoes.map((shoe) => _buildClickableCard(shoe, fgColor)).toList();
       }
+
+      final gender = _activeGender;
 
       contentWidgets.addAll([
         _ExpandableBanner(
           key: ValueKey('shoes_nike_$tabIndex'),
-          imagePath: shoesImg, 
+          imagePath: shoesImg,
           isNike: true,
-          items: const ['All Shoes'], 
+          items: const ['All Shoes'],
           onItemTap: (item) {
-            if (item == "All Shoes") {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const AllShoesScreen()));
-            }
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductListScreen(
+                  category: item,
+                  gender: gender,
+                ),
+              ),
+            );
           },
         ),
-        const SizedBox(height: 4), // <-- Đã thêm khoảng trống ở đây cho Nike
+        const SizedBox(height: 4),
         _ExpandableBanner(
           key: ValueKey('clothing_nike_$tabIndex'),
-          imagePath: clothingImg, 
+          imagePath: clothingImg,
           isNike: true,
-          items: const ['All Clothing'], 
+          items: const [
+            'All Clothing',
+            'Tops & T-Shirts',
+            'Hoodies & Pullovers',
+            'Jackets',
+            'Shorts',
+            'Socks',
+          ],
+          onItemTap: (item) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductListScreen(
+                  category: item,
+                  gender: gender,
+                ),
+              ),
+            );
+          },
         ),
       ]);
-
     } else {
-      // ===== JORDAN (Gồm 3 banner) =====
-      if (tabIndex == 0) { 
-        // 1. Tab Streetwear: Men, Women, Kids cách nhau 1 khoảng trống
+      if (tabIndex == 0) { // STREETWEAR
+        featuredTitle = 'Streetwear Exclusives';
+        // Lấy ngẫu nhiên vài sản phẩm làm nổi bật
+        final featuredShoes = allLocalProducts.where((p) => p.category == 'Hoodies & Pullovers').take(4).toList();
+        featuredWidgets = featuredShoes.map((shoe) => _buildClickableCard(shoe, fgColor)).toList();
+
         contentWidgets.addAll([
           _ExpandableBanner(
             key: const ValueKey('jd_sw_men'),
             imagePath: 'assets/jdmen.jpg',
             isNike: false,
             items: const ['All Men\'s'],
+            onItemTap: (item) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    category: item,
+                    gender: 'Men',
+                  ),
+                ),
+              );
+            },
           ),
-          const SizedBox(height: 4), 
+          const SizedBox(height: 4),
           _ExpandableBanner(
             key: const ValueKey('jd_sw_women'),
             imagePath: 'assets/jdwomen.jpg',
             isNike: false,
             items: const ['All Women\'s'],
+            onItemTap: (item) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    category: item,
+                    gender: 'Women',
+                  ),
+                ),
+              );
+            },
           ),
-          const SizedBox(height: 4), 
+          const SizedBox(height: 4),
           _ExpandableBanner(
             key: const ValueKey('jd_sw_kids'),
             imagePath: 'assets/jdkid.jpg',
             isNike: false,
-            items: const ['All Kids\''],
+            items: const ['All Kids'],
+            onItemTap: (item) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    category: item,
+                    gender: 'Kids',
+                  ),
+                ),
+              );
+            },
           ),
         ]);
-      } else { 
-        // 2. Tab Sport: Clothing, Shoes, Accessories
+      } else { // SPORT
+        featuredTitle = 'Performance Gear';
+        final featuredShoes = allLocalProducts.where((p) => p.category == 'Shorts').take(4).toList();
+        featuredWidgets = featuredShoes.map((shoe) => _buildClickableCard(shoe, fgColor)).toList();
+
         contentWidgets.addAll([
           _ExpandableBanner(
             key: const ValueKey('jd_sp_clothing'),
             imagePath: 'assets/jdclothing.jpg',
             isNike: false,
             items: const ['All Clothing'],
+            onItemTap: (item) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    category: item,
+                    gender: 'All',
+                  ),
+                ),
+              );
+            },
           ),
           const SizedBox(height: 4),
           _ExpandableBanner(
@@ -134,9 +245,15 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
             isNike: false,
             items: const ['All Shoes'],
             onItemTap: (item) {
-              if (item == "All Shoes") {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const AllShoesScreen()));
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    category: item,
+                    gender: 'All',
+                  ),
+                ),
+              );
             },
           ),
           const SizedBox(height: 4),
@@ -145,43 +262,54 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
             imagePath: 'assets/jdacces.jpg',
             isNike: false,
             items: const ['All Accessories'],
+            onItemTap: (item) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    category: item,
+                    gender: 'All',
+                  ),
+                ),
+              );
+            },
           ),
         ]);
       }
     }
 
-    // -----------------------------
-    // THÊM PHẦN SẢN PHẨM Ở CUỐI TRANG
-    // -----------------------------
+    // HIỂN THỊ PHẦN SẢN PHẨM NỔI BẬT Ở CUỐI TRANG
     contentWidgets.addAll([
       const SizedBox(height: 30),
-      SectionHeader(
-        title: widget.isNike ? 'National Team Collections' : 'Jordan Exclusives', 
-        color: fgColor
-      ),
+      SectionHeader(title: featuredTitle, color: fgColor),
       const SizedBox(height: 15),
       SizedBox(
-        height: 220,
+        height: 240, // Tăng nhẹ chiều cao để không bị cấn giá tiền
         child: ListView(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          children: [
-            ProductCard(
-              imageUrl: 'https://images.unsplash.com/photo-1584735174965-48c48d7028a9',
-              title: widget.isNike ? 'French Artistry' : 'Retro Collection',
-              fgColor: fgColor,
-            ),
-            ProductCard(
-              imageUrl: 'https://images.unsplash.com/photo-1552346154-21d5981057c5',
-              title: widget.isNike ? 'Mercurial Scorpion' : 'Flight Edition',
-              fgColor: fgColor,
-            ),
-          ],
+          children: featuredWidgets, 
         ),
       ),
     ]);
 
     return contentWidgets;
+  }
+
+  // Hàm hỗ trợ tạo ProductCard có thể click được
+  Widget _buildClickableCard(Shoe shoe, Color fgColor) {
+    return ProductCard(
+      shoe: shoe,
+      fgColor: fgColor,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailScreen(shoe: shoe),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -267,49 +395,89 @@ class SectionHeader extends StatelessWidget {
   }
 }
 
+// BẢN NÂNG CẤP PRODUCT CARD ĐỂ NHẬN DỮ LIỆU THẬT & AVIF
 class ProductCard extends StatelessWidget {
-  final String imageUrl;
-  final String title;
+  final Shoe shoe;
   final Color fgColor;
+  final VoidCallback onTap;
 
   const ProductCard({
     super.key,
-    required this.imageUrl,
-    required this.title,
+    required this.shoe,
     required this.fgColor,
+    required this.onTap,
   });
+
+  Widget _buildImage() {
+    if (shoe.imageUrl.toLowerCase().startsWith('http')) {
+      return Image.network(
+        shoe.imageUrl,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) =>
+            const Icon(Icons.style, size: 40, color: Colors.grey),
+      );
+    }
+    if (shoe.imageUrl.toLowerCase().endsWith('.avif')) {
+      return AvifImage.asset(
+        shoe.imageUrl,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) =>
+            const Icon(Icons.style, size: 40, color: Colors.grey),
+      );
+    }
+    return Image.asset(
+      shoe.imageUrl,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) =>
+          const Icon(Icons.style, size: 40, color: Colors.grey),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: SizedBox(
-        width: 160,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 160,
-              width: 160,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                image: DecorationImage(
-                  image: NetworkImage(imageUrl),
-                  fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: SizedBox(
+          width: 160,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 160,
+                width: 160,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: _buildImage(),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              maxLines: 2,
-              style: TextStyle(
-                color: fgColor,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+              const SizedBox(height: 10),
+              Text(
+                shoe.title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: fgColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              Text(
+                "đ${shoe.price.toStringAsFixed(0)}",
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

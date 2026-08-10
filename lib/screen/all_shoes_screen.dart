@@ -75,7 +75,10 @@ class _AllShoesScreenState extends State<AllShoesScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
                 _tab("All", true),
-                
+                _tab("Lifestyle", false),
+                _tab("Jordan", false),
+                _tab("Running", false),
+                _tab("Basketball", false),
               ],
             ),
           ),

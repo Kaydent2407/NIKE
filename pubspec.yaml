@@ -15,6 +15,7 @@ dependencies:
   http: ^1.5.0
   shared_preferences: ^2.5.5
   flutter_slidable: ^3.1.0
+  flutter_avif: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +24,28 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # Khai báo toàn bộ cấu trúc thư mục ảnh
   assets:
     - assets/
     - assets/section1/
+    
+    # Thư mục Kid
+    - assets/kid/bag/
+    - assets/kid/hoodies_pullovers/
+    - assets/kid/pants_tights/
+    - assets/kid/tops_tshirts/
+    
+    # Thư mục Men
+    - assets/men/hoodies_pullovers/
+    - assets/men/jackets/
+    - assets/men/shorts/
+    - assets/men/socks/
+    - assets/men/tops_tshirts/
+    
+    # Thư mục Women
+    - assets/women/hoodies_pullovers/
+    - assets/women/jackets/
+    - assets/women/shorts/
+    - assets/women/socks/
+    - assets/women/tops_tshirts/ 
