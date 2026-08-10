@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_avif/flutter_avif.dart';
 
 import '../models/shoe_model.dart';
 
@@ -44,26 +45,7 @@ class ShoeCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Hero(
                   tag: shoe.id,
-                  child: Image.network(
-                    shoe.imageUrl,
-                    fit: BoxFit.contain,
-                    loadingBuilder: (context, child, progress) {
-                      if (progress == null) return child;
-
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Center(
-                        child: Icon(
-                          Icons.image_not_supported,
-                          size: 45,
-                          color: Colors.grey,
-                        ),
-                      );
-                    },
-                  ),
+                  child: _buildProductImage(shoe.imageUrl),
                 ),
               ),
             ),
@@ -119,6 +101,61 @@ class ShoeCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildProductImage(String imageUrl) {
+    if (imageUrl.toLowerCase().startsWith('http')) {
+      return Image.network(
+        imageUrl,
+        fit: BoxFit.contain,
+        loadingBuilder: (context, child, progress) {
+          if (progress == null) return child;
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(
+            child: Icon(
+              Icons.image_not_supported,
+              size: 45,
+              color: Colors.grey,
+            ),
+          );
+        },
+      );
+    }
+
+    if (imageUrl.toLowerCase().endsWith('.avif')) {
+      return AvifImage.asset(
+        imageUrl,
+        fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(
+            child: Icon(
+              Icons.image_not_supported,
+              size: 45,
+              color: Colors.grey,
+            ),
+          );
+        },
+      );
+    }
+
+    return Image.asset(
+      imageUrl,
+      fit: BoxFit.contain,
+      errorBuilder: (context, error, stackTrace) {
+        return const Center(
+          child: Icon(
+            Icons.image_not_supported,
+            size: 45,
+            color: Colors.grey,
+          ),
+        );
+      },
     );
   }
 }

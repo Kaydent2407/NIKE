@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'all_shoes_screen.dart';
+import 'product_list_screen.dart';
 
 class ShopScreen extends StatefulWidget {
   final bool isNike;
@@ -47,55 +47,86 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  String get _activeGender {
+    switch (_tabController.index) {
+      case 0:
+        return 'Men';
+      case 1:
+        return 'Women';
+      case 2:
+        return 'Kids';
+      default:
+        return 'Men';
+    }
+  }
+
   List<Widget> _buildTabContent(Color fgColor) {
     final int tabIndex = _tabController.index;
-    
     List<Widget> contentWidgets = [];
 
-    // -----------------------------
-    // NỘI DUNG CHO TỪNG BRAND VÀ TAB
-    // -----------------------------
     if (widget.isNike) {
-      // ===== NIKE (Gồm 2 banner) =====
       String shoesImg = '';
       String clothingImg = '';
 
-      if (tabIndex == 0) { // Men
+      if (tabIndex == 0) {
         shoesImg = 'assets/bannermenshoes.jpg';
         clothingImg = 'assets/bannermenacs.jpg';
-      } else if (tabIndex == 1) { // Women
+      } else if (tabIndex == 1) {
         shoesImg = 'assets/bannerwomenshoes.jpg';
         clothingImg = 'assets/bannerwomenacs.jpg';
-      } else { // Kids
+      } else {
         shoesImg = 'assets/bannerkidshoes.jpg';
         clothingImg = 'assets/bannerkidacs.jpg';
       }
 
+      final gender = _activeGender;
+
       contentWidgets.addAll([
         _ExpandableBanner(
           key: ValueKey('shoes_nike_$tabIndex'),
-          imagePath: shoesImg, 
+          imagePath: shoesImg,
           isNike: true,
-          items: const ['All Shoes'], 
+          items: const ['All Shoes'],
           onItemTap: (item) {
-            if (item == "All Shoes") {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const AllShoesScreen()));
-            }
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductListScreen(
+                  category: item,
+                  gender: gender,
+                ),
+              ),
+            );
           },
         ),
-        const SizedBox(height: 4), // <-- Đã thêm khoảng trống ở đây cho Nike
+        const SizedBox(height: 4),
         _ExpandableBanner(
           key: ValueKey('clothing_nike_$tabIndex'),
-          imagePath: clothingImg, 
+          imagePath: clothingImg,
           isNike: true,
-          items: const ['All Clothing'], 
+          items: const [
+            'All Clothing',
+            'Tops & T-Shirts',
+            'Hoodies & Pullovers',
+            'Jackets',
+            'Shorts',
+            'Socks',
+          ],
+          onItemTap: (item) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductListScreen(
+                  category: item,
+                  gender: gender,
+                ),
+              ),
+            );
+          },
         ),
       ]);
-
     } else {
-      // ===== JORDAN (Gồm 3 banner) =====
-      if (tabIndex == 0) { 
-        // 1. Tab Streetwear: Men, Women, Kids cách nhau 1 khoảng trống
+      if (tabIndex == 0) {
         contentWidgets.addAll([
           _ExpandableBanner(
             key: const ValueKey('jd_sw_men'),
@@ -103,14 +134,14 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
             isNike: false,
             items: const ['All Men\'s'],
           ),
-          const SizedBox(height: 4), 
+          const SizedBox(height: 4),
           _ExpandableBanner(
             key: const ValueKey('jd_sw_women'),
             imagePath: 'assets/jdwomen.jpg',
             isNike: false,
             items: const ['All Women\'s'],
           ),
-          const SizedBox(height: 4), 
+          const SizedBox(height: 4),
           _ExpandableBanner(
             key: const ValueKey('jd_sw_kids'),
             imagePath: 'assets/jdkid.jpg',
@@ -118,8 +149,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
             items: const ['All Kids\''],
           ),
         ]);
-      } else { 
-        // 2. Tab Sport: Clothing, Shoes, Accessories
+      } else {
         contentWidgets.addAll([
           _ExpandableBanner(
             key: const ValueKey('jd_sp_clothing'),
@@ -134,9 +164,15 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
             isNike: false,
             items: const ['All Shoes'],
             onItemTap: (item) {
-              if (item == "All Shoes") {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const AllShoesScreen()));
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    category: item,
+                    gender: 'Men',
+                  ),
+                ),
+              );
             },
           ),
           const SizedBox(height: 4),
@@ -150,9 +186,6 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
       }
     }
 
-    // -----------------------------
-    // THÊM PHẦN SẢN PHẨM Ở CUỐI TRANG
-    // -----------------------------
     contentWidgets.addAll([
       const SizedBox(height: 30),
       SectionHeader(
