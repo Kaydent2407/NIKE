@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'settings_screen.dart';
 import 'edit_profile_screen.dart';
+import 'favorites_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -113,7 +114,17 @@ OutlinedButton(
                         _buildDivider(),
                         _buildMenuItem(Icons.qr_code_scanner_outlined, "Pass"),
                         _buildDivider(),
-                        _buildMenuItem(Icons.favorite_border, "Favorites"),
+
+                        // Thêm GestureDetector để điều hướng đến FavoritesScreen khi nhấn vào mục Favorites
+                        GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+    );
+  },
+  child: _buildMenuItem(Icons.favorite_border, "Favorites"),
+),
                         _buildDivider(),
                         GestureDetector(
                           onTap: () {
