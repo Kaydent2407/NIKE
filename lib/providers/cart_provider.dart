@@ -27,20 +27,34 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Thêm hàm cập nhật số lượng sản phẩm
+  void updateQuantity(Shoe shoe, int newQuantity) {
+    int index = _items.indexWhere((item) => item.shoe.id == shoe.id);
+    if (index >= 0) {
+      if (newQuantity > 0) {
+        _items[index].quantity = newQuantity;
+      } else {
+        _items.removeAt(index); // Xóa khỏi giỏ nếu số lượng = 0
+      }
+      notifyListeners(); // Cập nhật lại UI và tính lại totalPrice
+    }
+  }
+
   void removeItem(int index) {
     _items.removeAt(index);
     notifyListeners();
   }
 
-
   void removeFromCart(Shoe shoe) {
-    // Tìm và xóa sản phẩm tương ứng ra khỏi danh sách items
-    _items.removeWhere((item) => item.shoe.id == shoe.id); // Hoặc so sánh theo thuộc tính định danh duy nhất của sản phẩm
-    
-    notifyListeners(); // Cập nhật lại UI sau khi xóa
+    _items.removeWhere((item) => item.shoe.id == shoe.id);
+    notifyListeners();
   }
 
   double get totalPrice {
     return _items.fold(0, (sum, item) => sum + (item.shoe.price * item.quantity));
   }
+  void clearCart() {
+  _items.clear(); // Hoặc tên biến danh sách trong CartProvider của bạn
+  notifyListeners();
+}
 }

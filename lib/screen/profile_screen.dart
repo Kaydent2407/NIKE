@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'settings_screen.dart';
 import 'edit_profile_screen.dart';
 import 'favorites_screen.dart';
+import 'order_history_screen.dart'; // Import màn hình Lịch sử đơn hàng
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -74,57 +75,68 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Nút Edit Profile
-OutlinedButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const EditProfileScreen()),
-    );
-  },
-  style: OutlinedButton.styleFrom(
-    side: BorderSide(color: Colors.grey.shade300),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(25),
-    ),
-    padding: const EdgeInsets.symmetric(
-      horizontal: 24,
-      vertical: 10,
-    ),
-  ),
-  child: const Text(
-    "Edit Profile",
-    style: TextStyle(
-      color: Colors.black,
-      fontSize: 15,
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-),
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const EditProfileScreen()),
+                    );
+                  },
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.grey.shade300),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 10,
+                    ),
+                  ),
+                  child: const Text(
+                    "Edit Profile",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
 
                 const SizedBox(height: 32),
 
-                // Hàng Menu (Orders, Pass, Favorites, Settings) đã cân chỉnh khoảng cách
+                // Hàng Menu (Orders, Pass, Favorites, Settings)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: IntrinsicHeight(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildMenuItem(Icons.card_giftcard_outlined, "Orders"),
+                        // Điều hướng sang OrderHistoryScreen khi bấm Orders
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const OrderHistoryScreen(),
+                              ),
+                            );
+                          },
+                          child: _buildMenuItem(Icons.card_giftcard_outlined, "Orders"),
+                        ),
                         _buildDivider(),
                         _buildMenuItem(Icons.qr_code_scanner_outlined, "Pass"),
                         _buildDivider(),
 
-                        // Thêm GestureDetector để điều hướng đến FavoritesScreen khi nhấn vào mục Favorites
+                        // Điều hướng sang FavoritesScreen khi bấm Favorites
                         GestureDetector(
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const FavoritesScreen()),
-    );
-  },
-  child: _buildMenuItem(Icons.favorite_border, "Favorites"),
-),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+                            );
+                          },
+                          child: _buildMenuItem(Icons.favorite_border, "Favorites"),
+                        ),
                         _buildDivider(),
                         GestureDetector(
                           onTap: () {
@@ -217,7 +229,7 @@ OutlinedButton(
     );
   }
 
-  // Widget hiển thị cột icon + nhãn menu (đã bỏ Expanded để căn chỉnh tự nhiên hơn)
+  // Widget hiển thị cột icon + nhãn menu
   Widget _buildMenuItem(IconData icon, String title) {
     return Column(
       mainAxisSize: MainAxisSize.min,
