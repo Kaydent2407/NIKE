@@ -4,7 +4,8 @@ import '../widgets/app_logo.dart';
 import 'home_screen.dart'; 
 import 'shop_screen.dart';
 import 'bag_screen.dart';
-import 'profile_screen.dart'; // <-- Nhớ import ProfileScreen vào nhé
+import 'profile_screen.dart';
+import 'search_screen.dart'; // <-- Đã import SearchScreen
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -292,7 +293,15 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                // CHUYỂN SANG MÀN HÌNH TÌM KIẾM
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SearchScreen(),
+                  ),
+                );
+              },
               child: Container(
                 width: 70,
                 height: 70,
