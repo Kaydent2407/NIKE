@@ -50,7 +50,6 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
   List<Widget> _buildTabContent(Color fgColor) {
     final int tabIndex = _tabController.index;
     
-    // Tạo một danh sách rỗng để linh hoạt nhét số lượng banner tùy ý
     List<Widget> contentWidgets = [];
 
     // -----------------------------
@@ -84,6 +83,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
             }
           },
         ),
+        const SizedBox(height: 4), // <-- Đã thêm khoảng trống ở đây cho Nike
         _ExpandableBanner(
           key: ValueKey('clothing_nike_$tabIndex'),
           imagePath: clothingImg, 
@@ -103,14 +103,14 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
             isNike: false,
             items: const ['All Men\'s'],
           ),
-          const SizedBox(height: 4), // Khoảng đen be bé
+          const SizedBox(height: 4), 
           _ExpandableBanner(
             key: const ValueKey('jd_sw_women'),
             imagePath: 'assets/jdwomen.jpg',
             isNike: false,
             items: const ['All Women\'s'],
           ),
-          const SizedBox(height: 4), // Khoảng đen be bé
+          const SizedBox(height: 4), 
           _ExpandableBanner(
             key: const ValueKey('jd_sw_kids'),
             imagePath: 'assets/jdkid.jpg',
@@ -351,7 +351,6 @@ class _ExpandableBannerState extends State<_ExpandableBanner> {
               expanded = !expanded;
             });
           },
-          // ASPECT RATIO 3.3 GIÚP ẢNH HIỂN THỊ 100% TỈ LỆ GỐC
           child: AspectRatio(
             aspectRatio: 3.3, 
             child: Container(
