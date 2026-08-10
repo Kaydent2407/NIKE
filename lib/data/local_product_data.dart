@@ -12,8 +12,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Men',
-        imageUrl: 'assets/men/hoodies_pullovers/nike_sportwear_clib_fleece_55.97.avif',
-        images: ['assets/men/hoodies_pullovers/nike_sportwear_clib_fleece_55.97.avif'],
+        imageUrl: 'assets/men/hoodies_pullovers/nike_sportwear_clib_fleece_55.97.jpg',
+        images: ['assets/men/hoodies_pullovers/nike_sportwear_clib_fleece_55.97.jpg'],
       ),
       Shoe(
         id: 1002,
@@ -23,8 +23,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Men',
-        imageUrl: 'assets/men/hoodies_pullovers/nike_sportwear_club_65.97.avif',
-        images: ['assets/men/hoodies_pullovers/nike_sportwear_club_65.97.avif'],
+        imageUrl: 'assets/men/hoodies_pullovers/nike_sportwear_club_65.97.jpg',
+        images: ['assets/men/hoodies_pullovers/nike_sportwear_club_65.97.jpg'],
       ),
       Shoe(
         id: 1003,
@@ -34,8 +34,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Men',
-        imageUrl: 'assets/men/hoodies_pullovers/nike_standard_issue.avif',
-        images: ['assets/men/hoodies_pullovers/nike_standard_issue.avif'],
+        imageUrl: 'assets/men/hoodies_pullovers/nike_standard_issue.jpg',
+        images: ['assets/men/hoodies_pullovers/nike_standard_issue.jpg'],
       ),
       Shoe(
         id: 1004,
@@ -45,8 +45,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Men',
-        imageUrl: 'assets/men/hoodies_pullovers/nike_tech_113.97.avif',
-        images: ['assets/men/hoodies_pullovers/nike_tech_113.97.avif'],
+        imageUrl: 'assets/men/hoodies_pullovers/nike_tech_113.97.jpg',
+        images: ['assets/men/hoodies_pullovers/nike_tech_113.97.jpg'],
       ),
       Shoe(
         id: 1005,
@@ -56,8 +56,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Men',
-        imageUrl: 'assets/men/hoodies_pullovers/nike_tech_150.avif',
-        images: ['assets/men/hoodies_pullovers/nike_tech_150.avif'],
+        imageUrl: 'assets/men/hoodies_pullovers/nike_tech_150.jpg',
+        images: ['assets/men/hoodies_pullovers/nike_tech_150.jpg'],
       ),
 
       // Men - Jackets
@@ -69,8 +69,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Men',
-        imageUrl: 'assets/men/jackets/nike_club_120.avif',
-        images: ['assets/men/jackets/nike_club_120.avif'],
+        imageUrl: 'assets/men/jackets/nike_club_120.jpg',
+        images: ['assets/men/jackets/nike_club_120.jpg'],
       ),
       Shoe(
         id: 1012,
@@ -80,8 +80,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Men',
-        imageUrl: 'assets/men/jackets/nike_i96_repel_105.avif',
-        images: ['assets/men/jackets/nike_i96_repel_105.avif'],
+        imageUrl: 'assets/men/jackets/nike_i96_repel_105.jpg',
+        images: ['assets/men/jackets/nike_i96_repel_105.jpg'],
       ),
       Shoe(
         id: 1013,
@@ -91,8 +91,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Men',
-        imageUrl: 'assets/men/jackets/nike_stride_140.avif',
-        images: ['assets/men/jackets/nike_stride_140.avif'],
+        imageUrl: 'assets/men/jackets/nike_stride_140.jpg',
+        images: ['assets/men/jackets/nike_stride_140.jpg'],
       ),
       Shoe(
         id: 1014,
@@ -102,8 +102,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Men',
-        imageUrl: 'assets/men/jackets/nike_tech_102.97.avif',
-        images: ['assets/men/jackets/nike_tech_102.97.avif'],
+        imageUrl: 'assets/men/jackets/nike_tech_102.97.jpg',
+        images: ['assets/men/jackets/nike_tech_102.97.jpg'],
       ),
       Shoe(
         id: 1015,
@@ -113,8 +113,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Men',
-        imageUrl: 'assets/men/jackets/nike_windrunner_82.97.avif',
-        images: ['assets/men/jackets/nike_windrunner_82.97.avif'],
+        imageUrl: 'assets/men/jackets/nike_windrunner_82.97.jpg',
+        images: ['assets/men/jackets/nike_windrunner_82.97.jpg'],
       ),
 
       // Men - Shorts
@@ -126,8 +126,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Men',
-        imageUrl: 'assets/men/shorts/acg_chamo_camo_70.avif',
-        images: ['assets/men/shorts/acg_chamo_camo_70.avif'],
+        imageUrl: 'assets/men/shorts/acg_chamo_camo_70.png',
+        images: ['assets/men/shorts/acg_chamo_camo_70.png'],
       ),
       Shoe(
         id: 1022,
@@ -137,8 +137,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Men',
-        imageUrl: 'assets/men/shorts/ja_100.avif',
-        images: ['assets/men/shorts/ja_100.avif'],
+        imageUrl: 'assets/men/shorts/ja_100.png',
+        images: ['assets/men/shorts/ja_100.png'],
       ),
       Shoe(
         id: 1023,
@@ -148,8 +148,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Men',
-        imageUrl: 'assets/men/shorts/nike_acg_dolomiti_90.avif',
-        images: ['assets/men/shorts/nike_acg_dolomiti_90.avif'],
+        imageUrl: 'assets/men/shorts/nike_acg_dolomiti_90.png',
+        images: ['assets/men/shorts/nike_acg_dolomiti_90.png'],
       ),
       Shoe(
         id: 1024,
@@ -159,8 +159,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Men',
-        imageUrl: 'assets/men/shorts/nike_miler_42.avif',
-        images: ['assets/men/shorts/nike_miler_42.avif'],
+        imageUrl: 'assets/men/shorts/nike_miler_42.png',
+        images: ['assets/men/shorts/nike_miler_42.png'],
       ),
       Shoe(
         id: 1025,
@@ -170,8 +170,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Men',
-        imageUrl: 'assets/men/shorts/nike_tech_72.97.avif',
-        images: ['assets/men/shorts/nike_tech_72.97.avif'],
+        imageUrl: 'assets/men/shorts/nike_tech_72.97.png',
+        images: ['assets/men/shorts/nike_tech_72.97.png'],
       ),
 
       // Men - Socks
@@ -183,8 +183,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Men',
-        imageUrl: 'assets/men/socks/nike_everyday_elevated_28.97.avif',
-        images: ['assets/men/socks/nike_everyday_elevated_28.97.avif'],
+        imageUrl: 'assets/men/socks/nike_everyday_elevated_28.97.png',
+        images: ['assets/men/socks/nike_everyday_elevated_28.97.png'],
       ),
       Shoe(
         id: 1032,
@@ -194,8 +194,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Men',
-        imageUrl: 'assets/men/socks/nike_everyday_elevated_crew_26.97.avif',
-        images: ['assets/men/socks/nike_everyday_elevated_crew_26.97.avif'],
+        imageUrl: 'assets/men/socks/nike_everyday_elevated_crew_26.97.png',
+        images: ['assets/men/socks/nike_everyday_elevated_crew_26.97.png'],
       ),
       Shoe(
         id: 1033,
@@ -205,8 +205,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Men',
-        imageUrl: 'assets/men/socks/nike_everyday_elevated_low_28.97.avif',
-        images: ['assets/men/socks/nike_everyday_elevated_low_28.97.avif'],
+        imageUrl: 'assets/men/socks/nike_everyday_elevated_low_28.97.png',
+        images: ['assets/men/socks/nike_everyday_elevated_low_28.97.png'],
       ),
       Shoe(
         id: 1034,
@@ -216,8 +216,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Men',
-        imageUrl: 'assets/men/socks/nike_everyday_elevated_scallop_nicrocrew_24.avif',
-        images: ['assets/men/socks/nike_everyday_elevated_scallop_nicrocrew_24.avif'],
+        imageUrl: 'assets/men/socks/nike_everyday_elevated_scallop_nicrocrew_24.png',
+        images: ['assets/men/socks/nike_everyday_elevated_scallop_nicrocrew_24.png'],
       ),
       Shoe(
         id: 1035,
@@ -227,8 +227,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Men',
-        imageUrl: 'assets/men/socks/nike_wlite_2.0_20.avif',
-        images: ['assets/men/socks/nike_wlite_2.0_20.avif'],
+        imageUrl: 'assets/men/socks/nike_wlite_2.0_20.png',
+        images: ['assets/men/socks/nike_wlite_2.0_20.png'],
       ),
 
       // Men - Tops & T-Shirts
@@ -240,8 +240,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Men',
-        imageUrl: 'assets/men/tops_tshirts/nike_club_rules_55.avif',
-        images: ['assets/men/tops_tshirts/nike_club_rules_55.avif'],
+        imageUrl: 'assets/men/tops_tshirts/nike_club_rules_55.png',
+        images: ['assets/men/tops_tshirts/nike_club_rules_55.png'],
       ),
       Shoe(
         id: 1042,
@@ -251,8 +251,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Men',
-        imageUrl: 'assets/men/tops_tshirts/nike_men_basketball_tshirt_35.97.avif',
-        images: ['assets/men/tops_tshirts/nike_men_basketball_tshirt_35.97.avif'],
+        imageUrl: 'assets/men/tops_tshirts/nike_men_basketball_tshirt_35.97.png',
+        images: ['assets/men/tops_tshirts/nike_men_basketball_tshirt_35.97.png'],
       ),
       Shoe(
         id: 1043,
@@ -262,8 +262,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Men',
-        imageUrl: 'assets/men/tops_tshirts/nike_sportswear_36.97.avif',
-        images: ['assets/men/tops_tshirts/nike_sportswear_36.97.avif'],
+        imageUrl: 'assets/men/tops_tshirts/nike_sportswear_36.97.png',
+        images: ['assets/men/tops_tshirts/nike_sportswear_36.97.png'],
       ),
       Shoe(
         id: 1044,
@@ -273,8 +273,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Men',
-        imageUrl: 'assets/men/tops_tshirts/nike_sportswear_donut_45.avif',
-        images: ['assets/men/tops_tshirts/nike_sportswear_donut_45.avif'],
+        imageUrl: 'assets/men/tops_tshirts/nike_sportswear_donut_45.png',
+        images: ['assets/men/tops_tshirts/nike_sportswear_donut_45.png'],
       ),
       Shoe(
         id: 1045,
@@ -284,8 +284,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Men',
-        imageUrl: 'assets/men/tops_tshirts/nike_sportswear_short_sleeve_38.97.avif',
-        images: ['assets/men/tops_tshirts/nike_sportswear_short_sleeve_38.97.avif'],
+        imageUrl: 'assets/men/tops_tshirts/nike_sportswear_short_sleeve_38.97.png',
+        images: ['assets/men/tops_tshirts/nike_sportswear_short_sleeve_38.97.png'],
       ),
 
       // Women - Hoodies & Pullovers
@@ -297,8 +297,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Women',
-        imageUrl: 'assets/women/hoodies_pullovers/nike_24.7_impossiblysoft_89.97.avif',
-        images: ['assets/women/hoodies_pullovers/nike_24.7_impossiblysoft_89.97.avif'],
+        imageUrl: 'assets/women/hoodies_pullovers/nike_24.7_impossiblysoft_89.97.png',
+        images: ['assets/women/hoodies_pullovers/nike_24.7_impossiblysoft_89.97.png'],
       ),
       Shoe(
         id: 2002,
@@ -308,8 +308,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Women',
-        imageUrl: 'assets/women/hoodies_pullovers/nike_pregame_fleece_96.97.avif',
-        images: ['assets/women/hoodies_pullovers/nike_pregame_fleece_96.97.avif'],
+        imageUrl: 'assets/women/hoodies_pullovers/nike_pregame_fleece_96.97.png',
+        images: ['assets/women/hoodies_pullovers/nike_pregame_fleece_96.97.png'],
       ),
       Shoe(
         id: 2003,
@@ -319,8 +319,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Women',
-        imageUrl: 'assets/women/hoodies_pullovers/nike_sportswear_phoenix_fleece_69.97.avif',
-        images: ['assets/women/hoodies_pullovers/nike_sportswear_phoenix_fleece_69.97.avif'],
+        imageUrl: 'assets/women/hoodies_pullovers/nike_sportswear_phoenix_fleece_69.97.png',
+        images: ['assets/women/hoodies_pullovers/nike_sportswear_phoenix_fleece_69.97.png'],
       ),
       Shoe(
         id: 2004,
@@ -330,8 +330,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Women',
-        imageUrl: 'assets/women/hoodies_pullovers/nike_studio_fleece_medium_weight_70.avif',
-        images: ['assets/women/hoodies_pullovers/nike_studio_fleece_medium_weight_70.avif'],
+        imageUrl: 'assets/women/hoodies_pullovers/nike_studio_fleece_medium_weight_70.png',
+        images: ['assets/women/hoodies_pullovers/nike_studio_fleece_medium_weight_70.png'],
       ),
       Shoe(
         id: 2005,
@@ -341,8 +341,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Women',
-        imageUrl: 'assets/women/hoodies_pullovers/nike_studio_fleece_medium_weight_graphic_pack_80.avif',
-        images: ['assets/women/hoodies_pullovers/nike_studio_fleece_medium_weight_graphic_pack_80.avif'],
+        imageUrl: 'assets/women/hoodies_pullovers/nike_studio_fleece_medium_weight_graphic_pack_80.png',
+        images: ['assets/women/hoodies_pullovers/nike_studio_fleece_medium_weight_graphic_pack_80.png'],
       ),
 
       // Women - Jackets
@@ -354,8 +354,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Women',
-        imageUrl: 'assets/women/jackets/nike_sportswear_100.avif',
-        images: ['assets/women/jackets/nike_sportswear_100.avif'],
+        imageUrl: 'assets/women/jackets/nike_sportswear_100.png',
+        images: ['assets/women/jackets/nike_sportswear_100.png'],
       ),
       Shoe(
         id: 2012,
@@ -365,8 +365,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Women',
-        imageUrl: 'assets/women/jackets/nike_sportswear_90.avif',
-        images: ['assets/women/jackets/nike_sportswear_90.avif'],
+        imageUrl: 'assets/women/jackets/nike_sportswear_90.png',
+        images: ['assets/women/jackets/nike_sportswear_90.png'],
       ),
       Shoe(
         id: 2013,
@@ -376,8 +376,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Women',
-        imageUrl: 'assets/women/jackets/nike_sportswear_airreverent_254.97.avif',
-        images: ['assets/women/jackets/nike_sportswear_airreverent_254.97.avif'],
+        imageUrl: 'assets/women/jackets/nike_sportswear_airreverent_254.97.png',
+        images: ['assets/women/jackets/nike_sportswear_airreverent_254.97.png'],
       ),
       Shoe(
         id: 2014,
@@ -387,8 +387,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Women',
-        imageUrl: 'assets/women/jackets/nike_studio_fleece_medium_weight_nike_run_club_85.avif',
-        images: ['assets/women/jackets/nike_studio_fleece_medium_weight_nike_run_club_85.avif'],
+        imageUrl: 'assets/women/jackets/nike_studio_fleece_medium_weight_nike_run_club_85.png',
+        images: ['assets/women/jackets/nike_studio_fleece_medium_weight_nike_run_club_85.png'],
       ),
       Shoe(
         id: 2015,
@@ -398,8 +398,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Jackets',
         gender: 'Women',
-        imageUrl: 'assets/women/jackets/serena_williams_design_crew_133.97.avif',
-        images: ['assets/women/jackets/serena_williams_design_crew_133.97.avif'],
+        imageUrl: 'assets/women/jackets/serena_williams_design_crew_133.97.png',
+        images: ['assets/women/jackets/serena_williams_design_crew_133.97.png'],
       ),
 
       // Women - Shorts
@@ -411,8 +411,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Women',
-        imageUrl: 'assets/women/shorts/mike_one_n7_47.avif',
-        images: ['assets/women/shorts/mike_one_n7_47.avif'],
+        imageUrl: 'assets/women/shorts/mike_one_n7_47.png',
+        images: ['assets/women/shorts/mike_one_n7_47.png'],
       ),
       Shoe(
         id: 2022,
@@ -422,8 +422,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Women',
-        imageUrl: 'assets/women/shorts/nike_acg_dolomiti_90.avif',
-        images: ['assets/women/shorts/nike_acg_dolomiti_90.avif'],
+        imageUrl: 'assets/women/shorts/nike_acg_dolomiti_90.png',
+        images: ['assets/women/shorts/nike_acg_dolomiti_90.png'],
       ),
       Shoe(
         id: 2023,
@@ -433,8 +433,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Women',
-        imageUrl: 'assets/women/shorts/nike_pro_365_34.avif',
-        images: ['assets/women/shorts/nike_pro_365_34.avif'],
+        imageUrl: 'assets/women/shorts/nike_pro_365_34.png',
+        images: ['assets/women/shorts/nike_pro_365_34.png'],
       ),
       Shoe(
         id: 2024,
@@ -444,8 +444,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Women',
-        imageUrl: 'assets/women/shorts/nike_sportswear_chill_knit_55.avif',
-        images: ['assets/women/shorts/nike_sportswear_chill_knit_55.avif'],
+        imageUrl: 'assets/women/shorts/nike_sportswear_chill_knit_55.png',
+        images: ['assets/women/shorts/nike_sportswear_chill_knit_55.png'],
       ),
       Shoe(
         id: 2025,
@@ -455,8 +455,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Shorts',
         gender: 'Women',
-        imageUrl: 'assets/women/shorts/nike_studio_fleece_medium_weight_55.avif',
-        images: ['assets/women/shorts/nike_studio_fleece_medium_weight_55.avif'],
+        imageUrl: 'assets/women/shorts/nike_studio_fleece_medium_weight_55.png',
+        images: ['assets/women/shorts/nike_studio_fleece_medium_weight_55.png'],
       ),
 
       // Women - Socks
@@ -468,8 +468,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Women',
-        imageUrl: 'assets/women/socks/nikedrip_studio_16.avif',
-        images: ['assets/women/socks/nikedrip_studio_16.avif'],
+        imageUrl: 'assets/women/socks/nikedrip_studio_16.png',
+        images: ['assets/women/socks/nikedrip_studio_16.png'],
       ),
       Shoe(
         id: 2032,
@@ -479,8 +479,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Women',
-        imageUrl: 'assets/women/socks/nike_everyday_elevated_26.97.avif',
-        images: ['assets/women/socks/nike_everyday_elevated_26.97.avif'],
+        imageUrl: 'assets/women/socks/nike_everyday_elevated_26.97.png',
+        images: ['assets/women/socks/nike_everyday_elevated_26.97.png'],
       ),
       Shoe(
         id: 2033,
@@ -490,8 +490,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Women',
-        imageUrl: 'assets/women/socks/nike_run_midweight_16.avif',
-        images: ['assets/women/socks/nike_run_midweight_16.avif'],
+        imageUrl: 'assets/women/socks/nike_run_midweight_16.png',
+        images: ['assets/women/socks/nike_run_midweight_16.png'],
       ),
       Shoe(
         id: 2034,
@@ -501,8 +501,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Women',
-        imageUrl: 'assets/women/socks/nike_run_midweight_19.97.avif',
-        images: ['assets/women/socks/nike_run_midweight_19.97.avif'],
+        imageUrl: 'assets/women/socks/nike_run_midweight_19.97.png',
+        images: ['assets/women/socks/nike_run_midweight_19.97.png'],
       ),
       Shoe(
         id: 2035,
@@ -512,8 +512,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Women',
-        imageUrl: 'assets/women/socks/nike_sheer_16.avif',
-        images: ['assets/women/socks/nike_sheer_16.avif'],
+        imageUrl: 'assets/women/socks/nike_sheer_16.png',
+        images: ['assets/women/socks/nike_sheer_16.png'],
       ),
 
       // Women - Tops & T-Shirts
@@ -525,8 +525,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Women',
-        imageUrl: 'assets/women/tops_tshirts/acg_aireez_125.avif',
-        images: ['assets/women/tops_tshirts/acg_aireez_125.avif'],
+        imageUrl: 'assets/women/tops_tshirts/acg_aireez_125.png',
+        images: ['assets/women/tops_tshirts/acg_aireez_125.png'],
       ),
       Shoe(
         id: 2042,
@@ -536,8 +536,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Women',
-        imageUrl: 'assets/women/tops_tshirts/nike_sportswear_chill_knit_37.avif',
-        images: ['assets/women/tops_tshirts/nike_sportswear_chill_knit_37.avif'],
+        imageUrl: 'assets/women/tops_tshirts/nike_sportswear_chill_knit_37.png',
+        images: ['assets/women/tops_tshirts/nike_sportswear_chill_knit_37.png'],
       ),
       Shoe(
         id: 2043,
@@ -547,8 +547,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Women',
-        imageUrl: 'assets/women/tops_tshirts/nike_sportswear_chill_lace_90.avif',
-        images: ['assets/women/tops_tshirts/nike_sportswear_chill_lace_90.avif'],
+        imageUrl: 'assets/women/tops_tshirts/nike_sportswear_chill_lace_90.png',
+        images: ['assets/women/tops_tshirts/nike_sportswear_chill_lace_90.png'],
       ),
       Shoe(
         id: 2044,
@@ -558,8 +558,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Women',
-        imageUrl: 'assets/women/tops_tshirts/nike_sportswear_classic_37.avif',
-        images: ['assets/women/tops_tshirts/nike_sportswear_classic_37.avif'],
+        imageUrl: 'assets/women/tops_tshirts/nike_sportswear_classic_37.png',
+        images: ['assets/women/tops_tshirts/nike_sportswear_classic_37.png'],
       ),
       Shoe(
         id: 2045,
@@ -569,8 +569,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Women',
-        imageUrl: 'assets/women/tops_tshirts/nike_studio_65.avif',
-        images: ['assets/women/tops_tshirts/nike_studio_65.avif'],
+        imageUrl: 'assets/women/tops_tshirts/nike_studio_65.png',
+        images: ['assets/women/tops_tshirts/nike_studio_65.png'],
       ),
 
       // Kids - Bag
@@ -582,8 +582,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Bag',
         gender: 'Kids',
-        imageUrl: 'assets/kid/bag/acg_85.avif',
-        images: ['assets/kid/bag/acg_85.avif'],
+        imageUrl: 'assets/kid/bag/acg_85.png',
+        images: ['assets/kid/bag/acg_85.png'],
       ),
       Shoe(
         id: 3002,
@@ -593,8 +593,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Bag',
         gender: 'Kids',
-        imageUrl: 'assets/kid/bag/air_jordan_60.avif',
-        images: ['assets/kid/bag/air_jordan_60.avif'],
+        imageUrl: 'assets/kid/bag/air_jordan_60.png',
+        images: ['assets/kid/bag/air_jordan_60.png'],
       ),
       Shoe(
         id: 3003,
@@ -604,8 +604,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Bag',
         gender: 'Kids',
-        imageUrl: 'assets/kid/bag/jordan_42.avif',
-        images: ['assets/kid/bag/jordan_42.avif'],
+        imageUrl: 'assets/kid/bag/jordan_42.png',
+        images: ['assets/kid/bag/jordan_42.png'],
       ),
       Shoe(
         id: 3004,
@@ -615,8 +615,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Bag',
         gender: 'Kids',
-        imageUrl: 'assets/kid/bag/nike_elemental_39.avif',
-        images: ['assets/kid/bag/nike_elemental_39.avif'],
+        imageUrl: 'assets/kid/bag/nike_elemental_39.png',
+        images: ['assets/kid/bag/nike_elemental_39.png'],
       ),
       Shoe(
         id: 3005,
@@ -626,8 +626,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Bag',
         gender: 'Kids',
-        imageUrl: 'assets/kid/bag/nike_jdi_backpack_2.0_30.avif',
-        images: ['assets/kid/bag/nike_jdi_backpack_2.0_30.avif'],
+        imageUrl: 'assets/kid/bag/nike_jdi_backpack_2.0_30.png',
+        images: ['assets/kid/bag/nike_jdi_backpack_2.0_30.png'],
       ),
 
       // Kids - Hoodies & Pullovers
@@ -639,8 +639,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Kids',
-        imageUrl: 'assets/kid/hoodies_pullovers/nike_lego_collection_48.97.avif',
-        images: ['assets/kid/hoodies_pullovers/nike_lego_collection_48.97.avif'],
+        imageUrl: 'assets/kid/hoodies_pullovers/nike_lego_collection_48.97.png',
+        images: ['assets/kid/hoodies_pullovers/nike_lego_collection_48.97.png'],
       ),
       Shoe(
         id: 3012,
@@ -650,8 +650,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Kids',
-        imageUrl: 'assets/kid/hoodies_pullovers/nike_pro_60.avif',
-        images: ['assets/kid/hoodies_pullovers/nike_pro_60.avif'],
+        imageUrl: 'assets/kid/hoodies_pullovers/nike_pro_60.png',
+        images: ['assets/kid/hoodies_pullovers/nike_pro_60.png'],
       ),
       Shoe(
         id: 3013,
@@ -661,8 +661,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Kids',
-        imageUrl: 'assets/kid/hoodies_pullovers/nike_sportswear_club_50.avif',
-        images: ['assets/kid/hoodies_pullovers/nike_sportswear_club_50.avif'],
+        imageUrl: 'assets/kid/hoodies_pullovers/nike_sportswear_club_50.png',
+        images: ['assets/kid/hoodies_pullovers/nike_sportswear_club_50.png'],
       ),
       Shoe(
         id: 3014,
@@ -672,8 +672,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Kids',
-        imageUrl: 'assets/kid/hoodies_pullovers/nike_sportswear_studio_40.avif',
-        images: ['assets/kid/hoodies_pullovers/nike_sportswear_studio_40.avif'],
+        imageUrl: 'assets/kid/hoodies_pullovers/nike_sportswear_studio_40.png',
+        images: ['assets/kid/hoodies_pullovers/nike_sportswear_studio_40.png'],
       ),
       Shoe(
         id: 3015,
@@ -683,8 +683,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Hoodies & Pullovers',
         gender: 'Kids',
-        imageUrl: 'assets/kid/hoodies_pullovers/nike_sportswear_studio_fleece_55.avif',
-        images: ['assets/kid/hoodies_pullovers/nike_sportswear_studio_fleece_55.avif'],
+        imageUrl: 'assets/kid/hoodies_pullovers/nike_sportswear_studio_fleece_55.png',
+        images: ['assets/kid/hoodies_pullovers/nike_sportswear_studio_fleece_55.png'],
       ),
 
       // Kids - Pants & Tights
@@ -696,8 +696,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Pants & Tights',
         gender: 'Kids',
-        imageUrl: 'assets/kid/pants_tights/jordan_brooklyn_fleece_45.97.avif',
-        images: ['assets/kid/pants_tights/jordan_brooklyn_fleece_45.97.avif'],
+        imageUrl: 'assets/kid/pants_tights/jordan_brooklyn_fleece_45.97.png',
+        images: ['assets/kid/pants_tights/jordan_brooklyn_fleece_45.97.png'],
       ),
       Shoe(
         id: 3022,
@@ -707,8 +707,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Pants & Tights',
         gender: 'Kids',
-        imageUrl: 'assets/kid/pants_tights/nike_sportswear_40.97.avif',
-        images: ['assets/kid/pants_tights/nike_sportswear_40.97.avif'],
+        imageUrl: 'assets/kid/pants_tights/nike_sportswear_40.97.png',
+        images: ['assets/kid/pants_tights/nike_sportswear_40.97.png'],
       ),
       Shoe(
         id: 3023,
@@ -718,8 +718,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Pants & Tights',
         gender: 'Kids',
-        imageUrl: 'assets/kid/pants_tights/nike_sportswear_club_65.avif',
-        images: ['assets/kid/pants_tights/nike_sportswear_club_65.avif'],
+        imageUrl: 'assets/kid/pants_tights/nike_sportswear_club_65.png',
+        images: ['assets/kid/pants_tights/nike_sportswear_club_65.png'],
       ),
       Shoe(
         id: 3024,
@@ -729,8 +729,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Pants & Tights',
         gender: 'Kids',
-        imageUrl: 'assets/kid/pants_tights/nike_sportswear_collection_75.avif',
-        images: ['assets/kid/pants_tights/nike_sportswear_collection_75.avif'],
+        imageUrl: 'assets/kid/pants_tights/nike_sportswear_collection_75.png',
+        images: ['assets/kid/pants_tights/nike_sportswear_collection_75.png'],
       ),
       Shoe(
         id: 3025,
@@ -740,8 +740,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Pants & Tights',
         gender: 'Kids',
-        imageUrl: 'assets/kid/pants_tights/nike_sportwear_club_fleece_55.avif',
-        images: ['assets/kid/pants_tights/nike_sportwear_club_fleece_55.avif'],
+        imageUrl: 'assets/kid/pants_tights/nike_sportwear_club_fleece_55.png',
+        images: ['assets/kid/pants_tights/nike_sportwear_club_fleece_55.png'],
       ),
 
       // Kids - Socks
@@ -753,8 +753,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Kids',
-        imageUrl: 'assets/kid/socks/jordan_18.avif',
-        images: ['assets/kid/socks/jordan_18.avif'],
+        imageUrl: 'assets/men/socks/nike_wlite_2.0_20.png',
+        images: ['assets/men/socks/nike_wlite_2.0_20.png'],
       ),
       Shoe(
         id: 3032,
@@ -764,8 +764,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Kids',
-        imageUrl: 'assets/kid/socks/nike_22.avif',
-        images: ['assets/kid/socks/nike_22.avif'],
+        imageUrl: 'assets/men/socks/nike_everyday_elevated_28.97.png',
+        images: ['assets/men/socks/nike_everyday_elevated_28.97.png'],
       ),
       Shoe(
         id: 3033,
@@ -775,8 +775,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Kids',
-        imageUrl: 'assets/kid/socks/nike_everyday_elecated_22.97.avif',
-        images: ['assets/kid/socks/nike_everyday_elecated_22.97.avif'],
+        imageUrl: 'assets/men/socks/nike_everyday_elevated_low_28.97.png',
+        images: ['assets/men/socks/nike_everyday_elevated_low_28.97.png'],
       ),
       Shoe(
         id: 3034,
@@ -786,8 +786,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Kids',
-        imageUrl: 'assets/kid/socks/nike_juxta_firl_18.avif',
-        images: ['assets/kid/socks/nike_juxta_firl_18.avif'],
+        imageUrl: 'assets/women/socks/nikedrip_studio_16.png',
+        images: ['assets/women/socks/nikedrip_studio_16.png'],
       ),
       Shoe(
         id: 3035,
@@ -797,8 +797,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Socks',
         gender: 'Kids',
-        imageUrl: 'assets/kid/socks/nike_run_lightweight_20.avif',
-        images: ['assets/kid/socks/nike_run_lightweight_20.avif'],
+        imageUrl: 'assets/women/socks/nike_run_midweight_19.97.png',
+        images: ['assets/women/socks/nike_run_midweight_19.97.png'],
       ),
 
       // Kids - Tops & T-Shirts
@@ -810,8 +810,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Kids',
-        imageUrl: 'assets/kid/tops_tshirts/nike_legend_25.avif',
-        images: ['assets/kid/tops_tshirts/nike_legend_25.avif'],
+        imageUrl: 'assets/kid/tops_tshirts/nike_legend_25.png',
+        images: ['assets/kid/tops_tshirts/nike_legend_25.png'],
       ),
       Shoe(
         id: 3042,
@@ -821,8 +821,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Kids',
-        imageUrl: 'assets/kid/tops_tshirts/nike_miler_27.97.avif',
-        images: ['assets/kid/tops_tshirts/nike_miler_27.97.avif'],
+        imageUrl: 'assets/kid/tops_tshirts/nike_miler_27.97.png',
+        images: ['assets/kid/tops_tshirts/nike_miler_27.97.png'],
       ),
       Shoe(
         id: 3043,
@@ -832,8 +832,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Kids',
-        imageUrl: 'assets/kid/tops_tshirts/nike_pro_25.avif',
-        images: ['assets/kid/tops_tshirts/nike_pro_25.avif'],
+        imageUrl: 'assets/kid/tops_tshirts/nike_pro_25.png',
+        images: ['assets/kid/tops_tshirts/nike_pro_25.png'],
       ),
       Shoe(
         id: 3044,
@@ -843,8 +843,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Kids',
-        imageUrl: 'assets/kid/tops_tshirts/nike_sportswear_20.avif',
-        images: ['assets/kid/tops_tshirts/nike_sportswear_20.avif'],
+        imageUrl: 'assets/kid/tops_tshirts/nike_sportswear_20.png',
+        images: ['assets/kid/tops_tshirts/nike_sportswear_20.png'],
       ),
       Shoe(
         id: 3045,
@@ -854,8 +854,8 @@ class LocalProductData {
         brand: 'Nike',
         category: 'Tops & T-Shirts',
         gender: 'Kids',
-        imageUrl: 'assets/kid/tops_tshirts/nike_sportswear_collection_45.avif',
-        images: ['assets/kid/tops_tshirts/nike_sportswear_collection_45.avif'],
+        imageUrl: 'assets/kid/tops_tshirts/nike_sportswear_collection_45.png',
+        images: ['assets/kid/tops_tshirts/nike_sportswear_collection_45.png'],
       ),
     ];
   }

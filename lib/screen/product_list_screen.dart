@@ -34,18 +34,33 @@ class _ProductListScreenState extends State<ProductListScreen> {
     final normalizedGender = widget.gender.toLowerCase();
 
     if (normalizedCategory == 'all shoes') {
-      return NikeService.fetchShoes();
+      final allShoes = await NikeService.fetchShoes();
+      if (normalizedGender == 'all') {
+        return allShoes;
+      }
+      return allShoes
+          .where((shoe) => shoe.gender.toLowerCase() == normalizedGender)
+          .toList();
     }
 
     final allProducts = LocalProductData.mockProducts();
+    final accessoriesCategories = ['bag', 'socks'];
+    final shouldIgnoreCategory = normalizedCategory.startsWith('all ') &&
+        normalizedCategory != 'all clothing' &&
+        normalizedCategory != 'all accessories';
 
     return allProducts.where((product) {
       final productGender = product.gender.toLowerCase();
       final productCategory = product.category.toLowerCase();
-      final matchesGender = productGender == normalizedGender;
-      final matchesCategory =
-          normalizedCategory == 'all clothing' ||
+      final matchesGender = normalizedGender == 'all' ||
+          productGender == normalizedGender;
+
+      final matchesCategory = normalizedCategory == 'all clothing' ||
+          (normalizedCategory == 'all accessories' &&
+              accessoriesCategories.contains(productCategory)) ||
+          shouldIgnoreCategory ||
           productCategory == normalizedCategory;
+
       return matchesGender && matchesCategory;
     }).toList();
   }
@@ -57,43 +72,67 @@ class _ProductListScreenState extends State<ProductListScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 0, 
         centerTitle: true,
+        leadingWidth: 64,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: CircleAvatar(
+            backgroundColor: const Color(0xFFF5F5F5),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 18),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+        ),
         title: Text(
           widget.category,
           style: const TextStyle(
             color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontWeight: FontWeight.w600, 
+            fontSize: 16,
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: CircleAvatar(
+              backgroundColor: const Color(0xFFF5F5F5),
+              child: IconButton(
+                icon: const Icon(Icons.tune, color: Colors.black, size: 20),
+                onPressed: () {},
+              ),
+            ),
+          )
+        ],
       ),
+      // Đẩy FutureBuilder ra làm body chính, không cần Column hay Expanded nữa
       body: FutureBuilder<List<Shoe>>(
         future: products,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Colors.black));
           }
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
-              child: Text('Không có sản phẩm cho ${widget.category}.'),
+              child: Text(
+                'Không có sản phẩm cho ${widget.category}.',
+                style: const TextStyle(color: Colors.grey),
+              ),
             );
           }
 
           final data = snapshot.data!;
 
           return GridView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 30),
             itemCount: data.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 0.53,
+              childAspectRatio: 0.55, 
               crossAxisSpacing: 12,
-              mainAxisSpacing: 16,
+              mainAxisSpacing: 20,
             ),
             itemBuilder: (context, index) {
               final product = data[index];
