@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/shoe_model.dart';
 import '../providers/favorite_provider.dart';
+import '../utils/currency_formatter.dart';
 import 'detail_screen.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -295,7 +296,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           ),
           const SizedBox(height: 4),
           Text(
-            '₫${shoe.price.toStringAsFixed(0)}',
+            CurrencyFormatter.format(shoe.price),
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
@@ -386,7 +387,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           ),
           const SizedBox(height: 6),
           Text(
-            '₫${shoeObj.price.toStringAsFixed(0)}',
+            CurrencyFormatter.format(shoeObj.price),
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,

@@ -5,6 +5,7 @@ import '../models/shoe_model.dart';
 import '../providers/cart_provider.dart';
 import '../providers/favorite_provider.dart';
 import '../services/nike_service.dart';
+import '../utils/currency_formatter.dart';
 
 class DetailScreen extends StatefulWidget {
   final Shoe shoe;
@@ -153,7 +154,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'đ${widget.shoe.price.toStringAsFixed(0)}',
+                    CurrencyFormatter.format(widget.shoe.price),
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -536,7 +537,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                'đ${item.price.toStringAsFixed(0)}',
+                                CurrencyFormatter.format(item.price),
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,

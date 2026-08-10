@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../providers/cart_provider.dart';
+import '../utils/currency_formatter.dart';
 import 'detail_screen.dart';
 import 'checkout_screen.dart';
 
@@ -304,7 +305,7 @@ class BagScreen extends StatelessWidget {
                                             fontSize: 15,
                                             color: mutedTextColor)),
                                     Text(
-                                      "đ${cart.totalPrice.toStringAsFixed(0)}",
+                                      CurrencyFormatter.format(cart.totalPrice),
                                       style: TextStyle(
                                           fontSize: 15, color: mutedTextColor),
                                     ),
@@ -338,7 +339,7 @@ class BagScreen extends StatelessWidget {
                                           color: fgColor),
                                     ),
                                     Text(
-                                      "đ${cart.totalPrice.toStringAsFixed(0)}",
+                                      CurrencyFormatter.format(cart.totalPrice),
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -500,7 +501,7 @@ class BagScreen extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            "đ${(item.shoe.price * item.quantity).toStringAsFixed(0)}",
+                                            CurrencyFormatter.format(item.shoe.price * item.quantity),
                                             style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/currency_formatter.dart';
 import 'order_history_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -152,7 +153,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: [
                 const Text("Tổng tiền thanh toán:", style: TextStyle(fontSize: 16)),
                 Text(
-                  "đ${widget.totalPrice.toStringAsFixed(0)}",
+                  CurrencyFormatter.format(widget.totalPrice),
                   style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],

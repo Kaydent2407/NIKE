@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/currency_formatter.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({super.key});
@@ -273,7 +274,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       ),
                     ),
                     Text(
-                      "đ${(price * quantity).toStringAsFixed(0)}",
+                      CurrencyFormatter.format(price * quantity),
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -327,7 +328,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                   Text(
-                    "đ${totalPrice.toStringAsFixed(0)}",
+                    CurrencyFormatter.format(totalPrice),
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

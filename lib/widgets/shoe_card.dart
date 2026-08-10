@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/shoe_model.dart';
+import '../utils/currency_formatter.dart';
 
 class ShoeCard extends StatelessWidget {
   final Shoe shoe;
@@ -104,7 +105,7 @@ class ShoeCard extends StatelessWidget {
                     const Spacer(),
 
                     Text(
-                      "\$${shoe.price.toStringAsFixed(2)}",
+                      CurrencyFormatter.format(shoe.price),
                       style: const TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 18,

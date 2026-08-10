@@ -3,6 +3,7 @@ import 'package:flutter_avif/flutter_avif.dart';
 
 import '../data/local_product_data.dart';
 import '../models/shoe_model.dart';
+import '../utils/currency_formatter.dart';
 import 'detail_screen.dart';
 import 'product_list_screen.dart';
 
@@ -469,7 +470,7 @@ class ProductCard extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                "đ${shoe.price.toStringAsFixed(0)}",
+                CurrencyFormatter.format(shoe.price),
                 style: TextStyle(
                   color: Colors.grey.shade600,
                   fontSize: 13,
