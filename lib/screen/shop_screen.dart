@@ -1,476 +1,312 @@
 import 'package:flutter/material.dart';
-
 import 'all_shoes_screen.dart';
 
-
-class ShopScreen extends StatelessWidget {
-
+class ShopScreen extends StatefulWidget {
   final bool isNike;
-
 
   const ShopScreen({
     super.key,
     required this.isNike,
   });
 
+  @override
+  State<ShopScreen> createState() => _ShopScreenState();
+}
 
+class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: widget.isNike ? 3 : 2, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) return;
+    setState(() {}); 
+  }
+
+  @override
+  void didUpdateWidget(ShopScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.isNike != widget.isNike) {
+      _tabController.removeListener(_handleTabSelection);
+      _tabController.dispose();
+      
+      _tabController = TabController(length: widget.isNike ? 3 : 2, vsync: this);
+      _tabController.addListener(_handleTabSelection);
+      setState(() {}); 
+    }
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  List<Widget> _buildTabContent(Color fgColor) {
+    final int tabIndex = _tabController.index;
+    
+    // Tạo một danh sách rỗng để linh hoạt nhét số lượng banner tùy ý
+    List<Widget> contentWidgets = [];
+
+    // -----------------------------
+    // NỘI DUNG CHO TỪNG BRAND VÀ TAB
+    // -----------------------------
+    if (widget.isNike) {
+      // ===== NIKE (Gồm 2 banner) =====
+      String shoesImg = '';
+      String clothingImg = '';
+
+      if (tabIndex == 0) { // Men
+        shoesImg = 'assets/bannermenshoes.jpg';
+        clothingImg = 'assets/bannermenacs.jpg';
+      } else if (tabIndex == 1) { // Women
+        shoesImg = 'assets/bannerwomenshoes.jpg';
+        clothingImg = 'assets/bannerwomenacs.jpg';
+      } else { // Kids
+        shoesImg = 'assets/bannerkidshoes.jpg';
+        clothingImg = 'assets/bannerkidacs.jpg';
+      }
+
+      contentWidgets.addAll([
+        _ExpandableBanner(
+          key: ValueKey('shoes_nike_$tabIndex'),
+          imagePath: shoesImg, 
+          isNike: true,
+          items: const ['All Shoes'], 
+          onItemTap: (item) {
+            if (item == "All Shoes") {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const AllShoesScreen()));
+            }
+          },
+        ),
+        _ExpandableBanner(
+          key: ValueKey('clothing_nike_$tabIndex'),
+          imagePath: clothingImg, 
+          isNike: true,
+          items: const ['All Clothing'], 
+        ),
+      ]);
+
+    } else {
+      // ===== JORDAN (Gồm 3 banner) =====
+      if (tabIndex == 0) { 
+        // 1. Tab Streetwear: Men, Women, Kids cách nhau 1 khoảng trống
+        contentWidgets.addAll([
+          _ExpandableBanner(
+            key: const ValueKey('jd_sw_men'),
+            imagePath: 'assets/jdmen.jpg',
+            isNike: false,
+            items: const ['All Men\'s'],
+          ),
+          const SizedBox(height: 4), // Khoảng đen be bé
+          _ExpandableBanner(
+            key: const ValueKey('jd_sw_women'),
+            imagePath: 'assets/jdwomen.jpg',
+            isNike: false,
+            items: const ['All Women\'s'],
+          ),
+          const SizedBox(height: 4), // Khoảng đen be bé
+          _ExpandableBanner(
+            key: const ValueKey('jd_sw_kids'),
+            imagePath: 'assets/jdkid.jpg',
+            isNike: false,
+            items: const ['All Kids\''],
+          ),
+        ]);
+      } else { 
+        // 2. Tab Sport: Clothing, Shoes, Accessories
+        contentWidgets.addAll([
+          _ExpandableBanner(
+            key: const ValueKey('jd_sp_clothing'),
+            imagePath: 'assets/jdclothing.jpg',
+            isNike: false,
+            items: const ['All Clothing'],
+          ),
+          const SizedBox(height: 4),
+          _ExpandableBanner(
+            key: const ValueKey('jd_sp_shoes'),
+            imagePath: 'assets/jdshoes.jpg',
+            isNike: false,
+            items: const ['All Shoes'],
+            onItemTap: (item) {
+              if (item == "All Shoes") {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AllShoesScreen()));
+              }
+            },
+          ),
+          const SizedBox(height: 4),
+          _ExpandableBanner(
+            key: const ValueKey('jd_sp_acces'),
+            imagePath: 'assets/jdacces.jpg',
+            isNike: false,
+            items: const ['All Accessories'],
+          ),
+        ]);
+      }
+    }
+
+    // -----------------------------
+    // THÊM PHẦN SẢN PHẨM Ở CUỐI TRANG
+    // -----------------------------
+    contentWidgets.addAll([
+      const SizedBox(height: 30),
+      SectionHeader(
+        title: widget.isNike ? 'National Team Collections' : 'Jordan Exclusives', 
+        color: fgColor
+      ),
+      const SizedBox(height: 15),
+      SizedBox(
+        height: 220,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          children: [
+            ProductCard(
+              imageUrl: 'https://images.unsplash.com/photo-1584735174965-48c48d7028a9',
+              title: widget.isNike ? 'French Artistry' : 'Retro Collection',
+              fgColor: fgColor,
+            ),
+            ProductCard(
+              imageUrl: 'https://images.unsplash.com/photo-1552346154-21d5981057c5',
+              title: widget.isNike ? 'Mercurial Scorpion' : 'Flight Edition',
+              fgColor: fgColor,
+            ),
+          ],
+        ),
+      ),
+    ]);
+
+    return contentWidgets;
+  }
 
   @override
   Widget build(BuildContext context) {
-
-
-    final fgColor = isNike
-        ? Colors.black
-        : Colors.white;
-
-
+    final fgColor = widget.isNike ? Colors.black : Colors.white;
 
     return ListView(
-
       padding: EdgeInsets.zero,
-
       children: [
-
-
-        SizedBox(
-          height: MediaQuery.of(context).padding.top + 70,
-        ),
-
-
-
+        SizedBox(height: MediaQuery.of(context).padding.top + 70),
         Padding(
-
-          padding:
-          const EdgeInsets.symmetric(horizontal:20),
-
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-
-            isNike
-                ? 'Shop'
-                : 'Shop Jordan',
-
-
+            widget.isNike ? 'Shop' : 'Shop Jordan',
             style: TextStyle(
-
-              fontSize:34,
-
-              fontWeight:
-              FontWeight.bold,
-
-              color:fgColor,
-
-              letterSpacing:-0.5,
-
+              fontSize: 34,
+              fontWeight: FontWeight.bold,
+              color: fgColor,
+              letterSpacing: -0.5,
             ),
-
           ),
-
         ),
-
-
-
-        const SizedBox(height:20),
-
-
-
-
+        const SizedBox(height: 10),
+        
         Padding(
-
-          padding:
-          const EdgeInsets.symmetric(horizontal:20),
-
-          child: Row(
-
-            children: [
-
-              _buildTab(
-                  isNike ? 'Men':'Streetwear',
-                  true,
-                  fgColor
-              ),
-
-
-              const SizedBox(width:24),
-
-
-              _buildTab(
-                  isNike ? 'Women':'Sport',
-                  false,
-                  fgColor
-              ),
-
-
-
-              const SizedBox(width:24),
-
-
-              if(isNike)
-
-                _buildTab(
-                    'Kids',
-                    false,
-                    fgColor
-                ),
-
-
-            ],
-
-          ),
-
-        ),
-
-
-
-
-        const SizedBox(height:20),
-
-
-
-
-        _ExpandableBanner(
-
-          title:'New & Featured',
-
-          imageUrl:
-          'https://images.unsplash.com/photo-1579952363873-27f3bade9f55',
-
-          isNike:isNike,
-
-
-          items:const [
-
-            'Nike Football',
-
-            'App Exclusive & Early Access',
-
-            'New & Upcoming Drops',
-
-            'National Team Kits',
-
-            'New Releases',
-
-            'Bestsellers',
-
-            'LeBron James',
-
-            'Member Shop',
-
-            'Top Picks Under 3,000,000đ',
-
-          ],
-
-        ),
-
-
-
-
-
-        _ExpandableBanner(
-
-          title:'Shoes',
-
-          imageUrl:
-          'https://images.unsplash.com/photo-1605348532760-6753d2c43329',
-
-          isNike:isNike,
-
-
-          items:const [
-
-            'All Shoes',
-
-            'Lifestyle',
-
-            'Running',
-
-            'Basketball',
-
-            'Football',
-
-            'Training & Gym',
-
-            'Skateboarding',
-
-          ],
-
-
-
-          onItemTap:(item){
-
-
-            if(item=="All Shoes"){
-
-
-              Navigator.push(
-
-                context,
-
-
-                MaterialPageRoute(
-
-                  builder:(context)=>
-                  const AllShoesScreen(),
-
-                ),
-
-              );
-
-
-            }
-
-
-          },
-
-
-        ),
-
-
-
-
-
-
-        _ExpandableBanner(
-
-          title:'Clothing & Accessories',
-
-          imageUrl:
-          'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f',
-
-          isNike:isNike,
-
-
-          items:const [
-
-            'All Clothing',
-
-            'Tops & T-Shirts',
-
-            'Shorts',
-
-            'Hoodies & Pullovers',
-
-            'Trousers & Tights',
-
-            'Jackets',
-
-            'Socks',
-
-          ],
-
-        ),
-
-
-
-
-        _ExpandableBanner(
-
-          title:'Sale',
-
-          imageUrl:
-          'https://images.unsplash.com/photo-1542291026-7eec264c27ff',
-
-          isNike:isNike,
-
-
-          items:const [
-
-            'Shop All Sale',
-
-            'Shoes Sale',
-
-            'Clothing Sale',
-
-            'Accessories Sale',
-
-          ],
-
-        ),
-
-
-
-
-        const SizedBox(height:30),
-
-
-
-
-        _buildSectionHeader(
-            'National Team Collections',
-            fgColor
-        ),
-
-
-
-        const SizedBox(height:15),
-
-
-
-
-        SizedBox(
-
-          height:220,
-
-
-          child:ListView(
-
-            scrollDirection:
-            Axis.horizontal,
-
-
-            padding:
-            const EdgeInsets.symmetric(horizontal:10),
-
-
-
-            children:[
-
-
-              _buildProductCard(
-
-                imageUrl:
-                'https://images.unsplash.com/photo-1584735174965-48c48d7028a9',
-
-                title:
-                'French Artistry',
-
-                fgColor:fgColor,
-
-              ),
-
-
-
-              _buildProductCard(
-
-                imageUrl:
-                'https://images.unsplash.com/photo-1552346154-21d5981057c5',
-                title:
-                'Mercurial Scorpion',
-                fgColor:fgColor,
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: TabBar(
+            controller: _tabController,
+            isScrollable: true, 
+            tabAlignment: TabAlignment.start, 
+            labelColor: fgColor,
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: fgColor,
+            indicatorSize: TabBarIndicatorSize.label, 
+            dividerColor: Colors.transparent, 
+            labelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            unselectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            tabs: widget.isNike
+                ? const [
+                    Tab(text: 'Men'),
+                    Tab(text: 'Women'),
+                    Tab(text: 'Kids'),
+                  ]
+                : const [
+                    Tab(text: 'Streetwear'),
+                    Tab(text: 'Sport'),
+                  ],
           ),
         ),
-        const SizedBox(height:120),
+        const SizedBox(height: 10),
+        
+        ..._buildTabContent(fgColor),
+        
+        const SizedBox(height: 120), 
       ],
     );
   }
+}
 
+class SectionHeader extends StatelessWidget {
+  final String title;
+  final Color color;
 
-  Widget _buildTab(
-      String text,
-      bool active,
-      Color fgColor
-      ){
+  const SectionHeader({
+    super.key,
+    required this.title,
+    required this.color,
+  });
 
-
-    return Column(
-      crossAxisAlignment:
-      CrossAxisAlignment.start,
-
-
-      children:[
-        Text(
-          text,
-          style:TextStyle(
-            fontSize:16,
-            fontWeight:
-            active
-                ? FontWeight.bold
-                : FontWeight.w500,
-            color:
-            active
-                ? fgColor
-                : Colors.grey,
-          ),
-        ),
-
-
-
-        const SizedBox(height:4),
-
-
-
-        if(active)
-          Container(
-            height:2,
-            width:30,
-            color:fgColor,
-          )
-      ],
-    );
-  }
-
-  Widget _buildSectionHeader(
-      String title,
-      Color color
-      )
-    {
-
-
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding:
-      const EdgeInsets.symmetric(horizontal:20),
-
-      child:Text(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(
         title,
-        style:TextStyle(
-          fontSize:20,
-          fontWeight:
-          FontWeight.w500,
-          color:color,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: color,
         ),
       ),
     );
   }
+}
 
+class ProductCard extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final Color fgColor;
 
+  const ProductCard({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.fgColor,
+  });
 
-
-
-
-
-  Widget _buildProductCard({
-    required String imageUrl,
-    required String title,
-    required Color fgColor,
-  }){
-
-
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding:
-      const EdgeInsets.symmetric(horizontal:10),
-
-
-      child:SizedBox(
-        width:160,
-        child:Column(
-          crossAxisAlignment:
-          CrossAxisAlignment.start,
-          children:[
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: SizedBox(
+        width: 160,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Container(
-              height:160,
-              width:160,
-              decoration:BoxDecoration(
-                color:Colors.grey.shade300,
-                image:DecorationImage(
-                  image:
-                  NetworkImage(imageUrl),
-                  fit:BoxFit.cover,
+              height: 160,
+              width: 160,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                image: DecorationImage(
+                  image: NetworkImage(imageUrl),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            const SizedBox(height:10),
-
-
-
+            const SizedBox(height: 10),
             Text(
               title,
-              maxLines:2,
-              style:TextStyle(
-                color:fgColor,
-                fontSize:14,
-                fontWeight:
-                FontWeight.w500,
+              maxLines: 2,
+              style: TextStyle(
+                color: fgColor,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
@@ -480,149 +316,94 @@ class ShopScreen extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
 class _ExpandableBanner extends StatefulWidget {
-  final String title;
-  final String imageUrl;
+  final String imagePath;
   final bool isNike;
   final List<String> items;
   final Function(String)? onItemTap;
 
   const _ExpandableBanner({
-    required this.title,
-    required this.imageUrl,
+    super.key,
+    required this.imagePath,
     required this.isNike,
     required this.items,
     this.onItemTap,
-  }
-);
-
+  });
 
   @override
-  State<_ExpandableBanner> createState()=>_ExpandableBannerState();
-
+  State<_ExpandableBanner> createState() => _ExpandableBannerState();
 }
 
-class _ExpandableBannerState
-    extends State<_ExpandableBanner>{
-  bool expanded=false;
-
-
+class _ExpandableBannerState extends State<_ExpandableBanner> {
+  bool expanded = false;
 
   @override
-  Widget build(BuildContext context){
-    final fgColor =
-    widget.isNike
-        ? Colors.black
-        : Colors.white;
-    final bgColor =
-    widget.isNike
-        ? Colors.white
-        : Colors.black;
-    final dividerColor =
-    widget.isNike
-        ? Colors.grey.shade300
-        : Colors.grey.shade800;
+  Widget build(BuildContext context) {
+    final fgColor = widget.isNike ? Colors.black : Colors.white;
+    final bgColor = widget.isNike ? Colors.white : Colors.black;
+    final dividerColor = widget.isNike ? Colors.grey.shade300 : Colors.grey.shade800;
+
     return Column(
-      children:[
+      children: [
         GestureDetector(
-          onTap:(){
-            setState((){
-              expanded=!expanded;
+          onTap: () {
+            setState(() {
+              expanded = !expanded;
             });
           },
-
-
-
-          child:Container(
-            height:120,
-            width:double.infinity,
-            decoration:BoxDecoration(
-              image:DecorationImage(
-                image:
-                NetworkImage(
-                    widget.imageUrl
+          // ASPECT RATIO 3.3 GIÚP ẢNH HIỂN THỊ 100% TỈ LỆ GỐC
+          child: AspectRatio(
+            aspectRatio: 3.3, 
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(widget.imagePath),
+                  fit: BoxFit.cover, 
                 ),
-                fit:BoxFit.cover,
-                colorFilter:
-                ColorFilter.mode(
-                  Colors.black.withValues(alpha:0.3),
-                  BlendMode.darken,
-                ),
-              ),
-            ),
-            alignment:
-            Alignment.centerLeft,
-            padding:
-            const EdgeInsets.only(left:20),
-            child:Text(
-              widget.title,
-              style:const TextStyle(
-                color:Colors.white,
-                fontSize:22,
-                fontWeight:
-                FontWeight.w500,
               ),
             ),
           ),
         ),
-
         AnimatedSize(
-          duration:
-          const Duration(milliseconds:300),
-          child:
-          expanded?
-
-          Container(
-            color:bgColor,
-            child:Column(
-              children:
-              widget.items.map((item){
-                return InkWell(
-                  onTap:(){
-                    if(widget.onItemTap!=null){
-                      widget.onItemTap!(item);
-                    }
-                  },
-                  child:Container(
-                    width:double.infinity,
-                    padding:
-                    const EdgeInsets.symmetric(
-                      vertical:20,
-                      horizontal:20,
-                    ),
-
-
-                    decoration:BoxDecoration(
-                      border:Border(
-                        bottom:
-                        BorderSide(
-                          color:dividerColor,
+          duration: const Duration(milliseconds: 300),
+          child: expanded
+              ? Container(
+                  color: bgColor,
+                  child: Column(
+                    children: widget.items.map((item) {
+                      return InkWell(
+                        onTap: () {
+                          if (widget.onItemTap != null) {
+                            widget.onItemTap!(item);
+                          }
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 20,
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: dividerColor,
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            item,
+                            style: TextStyle(
+                              color: fgColor,
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-
-
-
-                    child:Text(
-                      item,
-                      style:TextStyle(
-                        color:fgColor,
-                        fontSize:16,
-                      ),
-                    ),
+                      );
+                    }).toList(),
                   ),
-                );
-              }).toList(),
-            ),
-          )
-              :
-          const SizedBox.shrink(),
+                )
+              : const SizedBox.shrink(),
         )
       ],
     );
