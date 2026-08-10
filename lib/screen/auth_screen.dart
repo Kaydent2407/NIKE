@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart'; 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'; 
-import 'package:shared_preferences/shared_preferences.dart'; // Thư viện lưu trữ dữ liệu máy
-import 'package:cloud_firestore/cloud_firestore.dart'; // Thư viện Firestore
+import 'package:shared_preferences/shared_preferences.dart'; 
+import 'package:cloud_firestore/cloud_firestore.dart'; 
 
 import 'splash_screen.dart';
 import '../widgets/app_logo.dart'; 
@@ -35,7 +35,7 @@ class _AuthScreenState extends State<AuthScreen> {
   void initState() {
     super.initState();
     _isSignIn = widget.isInitialSignIn;
-    _loadSavedEmail(); // Kích hoạt hàm kiểm tra xem có email nào được lưu không
+    _loadSavedEmail(); 
   }
 
   // Hàm tải Email đã lưu từ lần đăng nhập trước
@@ -45,8 +45,8 @@ class _AuthScreenState extends State<AuthScreen> {
     
     if (savedEmail != null && savedEmail.isNotEmpty) {
       setState(() {
-        _emailController.text = savedEmail; // Tự động điền email
-        _rememberMe = true;                 // Tự động tick vào ô Remember me
+        _emailController.text = savedEmail; 
+        _rememberMe = true;                
       });
     }
   }
@@ -63,6 +63,148 @@ class _AuthScreenState extends State<AuthScreen> {
 
   String _t(String en, String vi) {
     return _isEnglish ? en : vi;
+  }
+
+  // ==========================================
+  // HIỂN THỊ BOTTOM SHEET QUÊN MẬT KHẨU
+  // ==========================================
+  Future<void> _showForgotPasswordBottomSheet() async {
+    final TextEditingController resetEmailController = TextEditingController();
+    
+    // Nếu người dùng đã gõ email ở ngoài, tự động điền vào khung quên mật khẩu
+    if (_emailController.text.isNotEmpty) {
+      resetEmailController.text = _emailController.text.trim();
+    }
+
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Cho phép bottom sheet đẩy lên khi bật bàn phím
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        bool isSending = false; // Trạng thái loading riêng của bottom sheet
+        
+        // Dùng StatefulBuilder để cập nhật UI bên trong BottomSheet mà không ảnh hưởng màn hình ngoài
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 24,
+                right: 24,
+                top: 32,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _t('Reset Password', 'Khôi phục mật khẩu'),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    _t(
+                      'Enter your email address and we will send you a link to reset your password.',
+                      'Nhập địa chỉ email của bạn và chúng tôi sẽ gửi liên kết để đặt lại mật khẩu.'
+                    ),
+                    style: TextStyle(fontSize: 15, color: Colors.grey.shade600, height: 1.5, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 24),
+                  
+                  // Ô nhập Email
+                  TextField(
+                    controller: resetEmailController,
+                    keyboardType: TextInputType.emailAddress,
+                    autofocus: true,
+                    style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black, fontSize: 16),
+                    decoration: InputDecoration(
+                      labelText: _t('Email*', 'Email*'),
+                      labelStyle: TextStyle(color: Colors.grey.shade900, fontWeight: FontWeight.w600, fontSize: 16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Colors.grey.shade700, width: 1.5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: const BorderSide(color: Colors.black, width: 2.5),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  
+                  // Nút Gửi
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: isSending ? null : () async {
+                        final email = resetEmailController.text.trim();
+                        if (email.isEmpty || !email.contains('@')) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(_t('Please enter a valid email.', 'Vui lòng nhập email hợp lệ.')),
+                              backgroundColor: Colors.red.shade800,
+                            ),
+                          );
+                          return;
+                        }
+
+                        setModalState(() => isSending = true); // Bật vòng xoay loading
+
+                        try {
+                          await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                          if (mounted) {
+                            Navigator.pop(context); // Đóng BottomSheet
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(_t('Password reset link sent! Check your email.', 'Đã gửi liên kết đặt lại mật khẩu! Kiểm tra hộp thư của bạn.')),
+                                backgroundColor: Colors.green.shade700,
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          }
+                        } on FirebaseAuthException catch (e) {
+                          String errorMsg = _t('An error occurred', 'Đã xảy ra lỗi');
+                          if (e.code == 'user-not-found') {
+                            errorMsg = _t('No user found for that email.', 'Tài khoản email này không tồn tại.');
+                          }
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(errorMsg), backgroundColor: Colors.red.shade800),
+                          );
+                        } finally {
+                          if (mounted) setModalState(() => isSending = false);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                        disabledBackgroundColor: Colors.grey.shade400,
+                      ),
+                      child: isSending
+                          ? const SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                            )
+                          : Text(
+                              _t('Send Link', 'Gửi liên kết'),
+                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   Future<void> _handleAuth() async {
@@ -92,16 +234,13 @@ class _AuthScreenState extends State<AuthScreen> {
         // --- XỬ LÝ REMEMBER ME ---
         final prefs = await SharedPreferences.getInstance();
         if (_rememberMe) {
-          // Nếu có tick -> Lưu email vào máy
           await prefs.setString('saved_email', _emailController.text.trim());
         } else {
-          // Nếu không tick -> Xóa email cũ đi
           await prefs.remove('saved_email');
         }
         
-        if (mounted) Navigator.pop(context); // Tắt vòng loading
+        if (mounted) Navigator.pop(context); 
         
-        // Đăng nhập xong -> Qua SplashScreen chạy hiệu ứng
         if (mounted) {
           Navigator.pushReplacement(
             context,
@@ -119,30 +258,25 @@ class _AuthScreenState extends State<AuthScreen> {
           return;
         }
 
-        UserCredential userCredential =
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-    email: _emailController.text.trim(),
-    password: _passwordController.text.trim(),
-);
-    print("Đăng ký Auth OK");
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
 
-try{
-// Lưu thông tin người dùng vào Firestore
-await FirebaseFirestore.instance
-    .collection("users")
-    .doc(userCredential.user!.uid)
-    .set({
-
-  "name": _nameController.text.trim(), // Tên người dùng
-  "email": _emailController.text.trim(),
-  "phone": _phoneController.text.trim(), // Nếu có ô nhập số điện thoại
-  "avatar": "",
-  "createdAt": FieldValue.serverTimestamp(),
-});
-print("Lưu dữ liệu Firestore OK");
-}catch(e){
-  print("Lỗi lưu dữ liệu Firestore: $e");}
-
+        try {
+          await FirebaseFirestore.instance
+              .collection("users")
+              .doc(userCredential.user!.uid)
+              .set({
+            "name": _nameController.text.trim(),
+            "email": _emailController.text.trim(),
+            "phone": _phoneController.text.trim(), 
+            "avatar": "",
+            "createdAt": FieldValue.serverTimestamp(),
+          });
+        } catch(e) {
+          debugPrint("Lỗi lưu dữ liệu Firestore: $e");
+        }
         
         if (mounted) Navigator.pop(context); 
 
@@ -163,7 +297,7 @@ print("Lưu dữ liệu Firestore OK");
             ),
           );
         }
-}
+      }
 
     } on FirebaseAuthException catch (e) {
       if (mounted) Navigator.pop(context); 
@@ -290,7 +424,15 @@ print("Lưu dữ liệu Firestore OK");
                     ),
                     Text(_t('Remember me', 'Ghi nhớ đăng nhập'), style: TextStyle(color: Colors.grey.shade900, fontWeight: FontWeight.w600)),
                     const Spacer(),
-                    Text(_t('Forgot Password?', 'Quên mật khẩu?'), style: TextStyle(color: Colors.grey.shade900, fontWeight: FontWeight.w600, decoration: TextDecoration.underline)),
+                    
+                    // GẮN SỰ KIỆN QUÊN MẬT KHẨU VÀO ĐÂY
+                    GestureDetector(
+                      onTap: _showForgotPasswordBottomSheet,
+                      child: Text(
+                        _t('Forgot Password?', 'Quên mật khẩu?'), 
+                        style: TextStyle(color: Colors.grey.shade900, fontWeight: FontWeight.w600, decoration: TextDecoration.underline),
+                      ),
+                    ),
                   ],
                 ),
               ],
