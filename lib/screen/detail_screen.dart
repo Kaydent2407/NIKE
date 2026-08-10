@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../models/shoe_model.dart';
 import '../providers/cart_provider.dart';
 import '../services/nike_service.dart'; // Đảm bảo đã import NikeService
+// Import provider
+import '../providers/favorite_provider.dart';
 
 class DetailScreen extends StatefulWidget {
   final Shoe shoe;
@@ -31,7 +33,7 @@ class _DetailScreenState extends State<DetailScreen> {
     "EU 40",
     "EU 41",
   ];
-
+  
   @override
   void initState() {
     super.initState();
@@ -44,6 +46,8 @@ class _DetailScreenState extends State<DetailScreen> {
     final List<String> imageList = (widget.shoe.images != null && widget.shoe.images!.isNotEmpty)
         ? widget.shoe.images!
         : [widget.shoe.imageUrl];
+    final favoriteProvider = FavoriteProvider();
+    final isFav = favoriteProvider.isFavorite(widget.shoe);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -294,45 +298,43 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          _isFavorite = !_isFavorite;
-                        });
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.grey.shade300),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(28),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Favorite",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Icon(
-                            _isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: _isFavorite ? Colors.red : Colors.black,
-                            size: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Nút Favorite trong _DetailScreenState:
+SizedBox(
+  width: double.infinity,
+  height: 56,
+  child: OutlinedButton(
+    onPressed: () {
+      setState(() {
+        favoriteProvider.toggleFavorite(widget.shoe);
+      });
+    },
+    style: OutlinedButton.styleFrom(
+      side: BorderSide(color: Colors.grey.shade300),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(28),
+      ),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          isFav ? "Favorited" : "Favorite",
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Icon(
+          isFav ? Icons.favorite : Icons.favorite_border,
+          color: isFav ? Colors.red : Colors.black,
+          size: 20,
+        ),
+      ],
+    ),
+  ),
+),
                 ],
               ),
             ),
